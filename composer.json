@@ -1,0 +1,15 @@
+{
+    "name": "twig/twig",
+    "autoload": {
+        "psr-4": {
+            "Twig\\Twig\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "lifzerr",
+            "email": "maxime.bourciez@gmail.com"
+        }
+    ],
+    "require": {}
+}
