@@ -1,8 +1,9 @@
 {
-    "name": "twig/twig",
+    "name": "mon-projet/portfolio",
+    "description": "Un projet utilisant Twig pour le rendu des templates.",
     "autoload": {
         "psr-4": {
-            "Twig\\Twig\\": "src/"
+            "App\\": "src/"
         }
     },
     "authors": [
@@ -11,5 +12,8 @@
             "email": "maxime.bourciez@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "twig/twig": "^3.0",
+        "twig/intl-extra": "^3.13"
+    }
 }
