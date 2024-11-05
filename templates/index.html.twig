@@ -5,4 +5,13 @@
 {% block content %}
     <h1>Welcome to My Portfolio</h1>
     <p>My name is John Doe and I am a web developer.</p>
+
+    
+
+    <h2>Projects</h2>
+    {% for project in projets %}
+        <h3>{{ project.titre }}</h3>
+        <p>{{ project.description }}</p>
+    {% endfor %}
+
 {% endblock %}
