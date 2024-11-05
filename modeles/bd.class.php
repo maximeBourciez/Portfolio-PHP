@@ -6,7 +6,6 @@ class Bd{
     private ?PDO $pdo; // Objet PDO
 
 
-    
     // Constructeur
     private function __construct(){
         try {
@@ -19,6 +18,7 @@ class Bd{
         }
     }
 
+    // Méthode propre au Singleton 
     public static function getInstance(): Bd{
         if (self::$instance == null){
             self::$instance = new Bd();
@@ -26,16 +26,17 @@ class Bd{
         return self::$instance;
     }
 
+    // Méthode pour récupérer la connexion
     public function getConnexion(): PDO{
         return $this->pdo;
     }
 
-    //empecherd de cloner l'objet
+    // Empecher de cloner l'objet
     private function __clone(){
 
     }
 
-    //empecher de deserialiser l'objet
+    // Empecher de deserialiser l'objet
     public function __wakeup(){
             throw new Exception("Un singleton ne doit pas être deserialisé");
     }
