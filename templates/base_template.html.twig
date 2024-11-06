@@ -1,29 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Portfolio{% endblock %}</title>
-    <link rel="stylesheet" href='css/styles.css'>
-</head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="">About</a></li>
-                <li><a href="">Projects</a></li>
-                <li><a href="">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-    
-    <footer>
-        <p>&copy; 2023 My Portfolio</p>
-    </footer>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}My Portfolio
+			{% endblock %}
+		</title>
+		<link rel="stylesheet" href='node_modules\bootstrap\dist\css\bootstrap.css'>
+	</head>
+	<body>
+		<header>
+			<nav class="navbar navbar-expand-lg bg-body-tertiary">
+				<div class="container-fluid">
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+						<a class="navbar-brand" href="index.php">Maxime BOURCIEZ</a>
+						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+							<li class="nav-item">
+								<a class="nav-link selected" aria-current="page" href="index.php">Accueil</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="panier.php">Projets</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="panier.php">Expériences</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="panier.php">Contact</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
+
+		<main>
+			{% block content %}{% endblock %}
+		</main>
+
+		<footer class="bg-dark text-white py-4">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<h5>war.net</h5>
+						<p>Le site de vente en ligne de matériel historique de la Seconde Guerre mondiale.</p>
+					</div>
+					<div class="col-md-4">
+						<h5>Liens Utiles</h5>
+						<ul class="list-unstyled">
+							<li>
+								<a href="#" class="text-white">Accueil</a>
+							</li>
+							<li>
+								<a href="#" class="text-white">Projets</a>
+							</li>
+							<li>
+								<a href="#" class="text-white">Expériences</a>
+							</li>
+                            <li>
+								<a href="#" class="text-white">Contact</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-4">
+						<h5>Suivez-moi</h5>
+						<a href="#" class="text-white me-2">
+							<i class="fab fa-linkedin"></i>
+							LinkedIn</a><br>
+						<a href="#" class="text-white me-2">
+							<i class="fab fa-github"></i>
+							Github</a><br>
+						<a href="#" class="text-white">
+							<i class="fab fa-instagram"></i>
+							Instagram</a>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col text-center">
+						<p>&copy; 2024 war.net. Tous droits réservés.</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+	</body>
 </html>
