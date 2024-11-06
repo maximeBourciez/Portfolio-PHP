@@ -8,15 +8,17 @@ class Projet{
     private string|null $description; // description du projet
     private string|null $imageCover; // image de couverture du projet
     private string|null $annee; // Année du projet
+    private array|null $technologies; // Items du projet
 
 
     // Constructeur
-    function __construct(?int $id, ?string $titre, ?string $description, ?string $imageCover, ?string $annee){
+    function __construct(?int $id, ?string $titre, ?string $description, ?string $imageCover, ?string $annee, ?array $technologies){
         $this->id = $id;
         $this->titre = $titre;
         $this->description = $description;
         $this->imageCover = $imageCover;
         $this->annee = $annee;
+        $this->technologies = $technologies;
     }
 
 
@@ -42,6 +44,10 @@ class Projet{
         return $this->annee;
     }
 
+    public function getTechnologies(): array|null{
+        return $this->technologies;
+    }
+
 
     // Setters 
     public function setId(int $id): void{
@@ -62,5 +68,9 @@ class Projet{
 
     public function setAnnee(string|null $annee): void{
         $this->annee = $annee;
+    }
+
+    public function setTechnologies(array|null $technologies): void{
+        $this->technologies = $technologies;
     }
 }

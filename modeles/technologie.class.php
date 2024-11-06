@@ -5,8 +5,9 @@ class Technologie{
     // Attributs 
     private ?int $id; // Identifiant
     private ?string $nom; // Nom de la technologie
-    private ?string $logo; // Logo de la technologie
+    
     private ?string $niveauMaitrise; // Niveau de maitrise de la technologie
+    private ?string $logo; // Logo de la technologie
 
 
     // Constructeur

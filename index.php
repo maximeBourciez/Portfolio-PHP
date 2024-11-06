@@ -16,6 +16,10 @@ try  {
         $methode='';
     }
 
+    // Affichage des variables
+    echo 'controllerName : '.$controllerName.'<br>';
+    echo 'methode : '.$methode.'<br>';
+
     //Gestion de la page d'accueil par défaut
     if ($controllerName == '' && $methode ==''){
         $controllerName='index';
@@ -29,6 +33,8 @@ try  {
     if ($methode == '' ){
         throw new Exception('La méthode n\'est pas définie');
     }
+
+    
 
     $controller = ControllerFactory::getController($controllerName, $loader, $twig);
   
