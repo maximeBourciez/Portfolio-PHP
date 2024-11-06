@@ -15,7 +15,7 @@ require_once 'modeles/bd.class.php';
 // Ajout des contrôleurs
 require_once 'controller/controller.class.php';
 require_once 'controller/controller_index.class.php';
-// require_once 'controller/controller_projet.class.php';
+require_once 'controller/controller_projets.class.php';
 // require_once 'controller/controller_contact.class.php';
 require_once 'controller/controller_factory.class.php';
 
