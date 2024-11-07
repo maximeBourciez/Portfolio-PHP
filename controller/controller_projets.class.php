@@ -12,18 +12,23 @@ class ControllerProjets extends Controller{
 
         // Récupérer tous les projets
         $projetDAO = new ProjetDAO($this->getPdo());
-        $projets = $projetDAO->getLastThree();
+        $projets = $projetDAO->findAll();
+
+        // Récupérer toutes les technologies disponibles
+        $technologieDAO = new TechnologieDAO($this->getPdo());
+        $technologies = $technologieDAO->findAll();
 
         // Affichage du rendu du template avec les variables
         echo $template->render([
             'title' => 'Projets',
             'description' => 'Liste des projets',
-            'projets' => $projets
+            'projets' => $projets,
+            'technologies' => $technologies
         ]);
     }
 
     // Méthode pour afficher un projet
-    /*public function show(){
+    public function show(){
         // Import twig
         require_once("config/twig.php");
 
@@ -32,7 +37,7 @@ class ControllerProjets extends Controller{
 
         // Récupérer le projet
         $projetDAO = new ProjetDAO($this->getPdo());
-        $projet = $projetDAO->getById($this->getGet()['id']);
+        $projet = $projetDAO->getById($this->getGet()['id_projet']);
 
         // Récupérer les items du projet
         $items = $projetDAO->getItems($this->getGet()['id']);
@@ -44,5 +49,5 @@ class ControllerProjets extends Controller{
             'projet' => $projet,
             'items' => $items
         ]);
-    }*/
+    }
 }

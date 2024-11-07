@@ -18,34 +18,34 @@
 			</div>
 		</div>
 	</div>
+	<div class="bg-light px-5">
+		<div class="bg-light px-5 text-center">
+			<h3>Quelques-uns de mes projets</h3>
+			<a href="index.php?controller=projets&methode=index" class="btn btn-primary mt-3">En découvrir +</a>
+		</div>
 
-	<div class="bg-light py-5 text-center">
-		<h3>Quelques-uns de mes projets</h3>
-		<a href="works.html" class="btn btn-outline-primary mt-3">En découvrir +</a>
-	</div>
-
-
-	<div class="row">
-		{% for project in projets %}
-			<div class="col-md-4 mb-4">
-				<div class="card h-100 shadow-sm">
-					<img src="{{ project.imageCover }}" class="card-img-top w-100 p-2 image-rounded-top" style="height: 250px; object-fit: cover;" alt="Image de {{ project.titre }}">
-					<div class="card-body">
-						<h3 class="card-title">{{ project.titre }}</h3>
-						<div class="d-flex align-items-center">
-							<span class="badge bg-secondary me-2">{{ project.annee }}</span>
-							<h4 class="card-subtitle text-muted">
-								{% for techno in project.technologies %}
-									{{ loop.first ? '' : ', ' }}{{ techno.nom }}
-								{% endfor %}
-							</h4>
+		<div class="container">
+			<div class="row bg-light pt-5">
+				{% for project in projets %}
+					<a class="col-md-4 mb-4 text-decoration-none" href="index.html?controller=projets&methode=show&id_projet={{project.id}}">
+						<div class="card h-100 shadow-sm">
+							<img src="{{ project.imageCover }}" class="card-img-top w-100 p-2 image-rounded-top" style="height: 250px; object-fit: cover;" alt="Image de {{ project.titre }}">
+							<div class="card-body">
+								<h3 class="card-title">{{ project.titre }}</h3>
+								<div class="d-flex align-items-center">
+									<span class="badge bg-secondary me-2">{{ project.annee }}</span>
+									<h4 class="card-subtitle text-muted">
+										{% for techno in project.technologies %}
+											{{ loop.first ? '' : ', ' }}{{ techno.nom }}
+										{% endfor %}
+									</h4>
+								</div>
+								<p class="card-text mt-3">{{ project.description }}</p>
+							</div>
 						</div>
-						<p class="card-text mt-3">{{ project.description }}</p>
-					</div>
-				</div>
+					</a>
+				{% endfor %}
 			</div>
-		{% endfor %}
+		</div>
 	</div>
-
-
 {% endblock %}

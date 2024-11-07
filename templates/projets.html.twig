@@ -4,31 +4,60 @@
 {% endblock %}
 
 {% block content %}
-	<h1>Projets</h1>
-	<p>Voici les projets que j'ai réalisés.</p>
+	<div class="container my-5">
+		<h1 class="text-center mb-4">Projets</h1>
+		<p class="text-center">Voici les projets que j'ai réalisés.</p>
 
-	<h2>Projets</h2>
-	<div class="content">
-		<div class="works-list">
-			{% for project in projets %}
-				<div class="item">
-					<img src="{{ project.imageCover }}">
-					<div class="details">
-						<h3>{{ project.titre }}</h3>
-						<div class="item-info">
-							<div class="year-badge">{{ project.annee }}</div>
-							<h4>
-								{% for techno in project.technologies %}
-									{{ loop.first ? '' : ', ' }}{{ techno.nom }}
-								{% endfor %}
-							</h4>
-						</div>
-						<p>{{ project.description }}</p>
-					</div>
+		<form method="GET" action="ton_script.php">
+			<div class="form-group row">
+				<div class="col-md-6">
+					<label for="type">Type de projet</label>
+					<select name="type" id="type" class="form-control">
+						<option value="">Tous</option>
+						<option value="Universitaire">Universitaire</option>
+						<option value="Personnel">Personnel</option>
+						<option value="Professionnel">Professionnel</option>
+					</select>
 				</div>
-			{% endfor %}
+				<div class="col-md-6">
+					<label for="techno">Technologie</label>
+					<select name="techno" id="techno" class="form-control">
+						<option value="">Toutes</option>
+						{% for techno in technologies %}
+							<option value="{{ techno.id }}">{{ techno.nom }}</option>
+						{% endfor %}
+					</select>
+
+				</div>
+				<button type="submit" class="btn btn-primary mt-4">Filtrer</button>
+			</form>
+
+			<h2 class="mt-5">Projets</h2>
+			<div class="content">
+				<div class="works-list pt-2">
+					{% for project in projets %}
+						<div class="item">
+							<div class="d-flex">
+								<img src="{{ project.imageCover }}" class="img-fluid" alt="Image de {{ project.titre }}" style="width: 150px; height: auto; margin-right: 20px; border-radius: 5px;">
+								<div class="details">
+									<h3 class="mb-2">{{ project.titre }}</h3>
+									<div class="item-info d-flex align-items-center mb-2">
+										<div class="year-badge badge bg-secondary me-2">{{ project.annee }}</div>
+										<h4 class="m-0 small secondary">
+											{% for techno in project.technologies %}
+												{{ loop.first ? '' : ', ' }}{{ techno.nom }}
+											{% endfor %}
+										</h4>
+									</div>
+									<p>{{ project.description }}</p>
+								</div>
+							</div>
+						</div>
+						<hr>
+					{% endfor %}
+				</div>
+			</div>
 		</div>
-	</div>
 
 
-{% endblock %}
+	{% endblock %}
