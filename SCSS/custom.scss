@@ -1,0 +1,14 @@
+// custom.scss
+
+// Définir tes propres couleurs
+$primary: #303f9f; // Bleu personnalisé
+$secondary: #2ecc71; // Vert personnalisé
+$success: #27ae60; // Succès personnalisé
+$info: #8e44ad; // Informations personnalisées
+$warning: #f39c12; // Avertissement personnalisé
+$danger: #e74c3c; // Danger personnalisé
+$light: #ecf0f1; // Couleur claire personnalisée
+$dark: #2c3e50; // Couleur sombre personnalisée
+
+// Importer Bootstrap à partir de node_modules
+@import "../node_modules/bootstrap/scss/bootstrap";

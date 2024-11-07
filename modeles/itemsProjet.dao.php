@@ -6,7 +6,7 @@ class ItemsProjetDAO{
     private ?PDO $pdo; // Instance de PDO
     
     // Constructeur
-    public function __construct(?PDO $pdo){
+    public function __construct(?PDO $pdo = null){
         $this->pdo = $pdo;
     }
 

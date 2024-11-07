@@ -6,7 +6,7 @@ class TechnologieDAO{
     private ?PDO $pdo; // Instance de PDO
 
     // Constructeur
-    public function __construct(?PDO $pdo){
+    public function __construct(?PDO $pdo = null){
         $this->pdo = $pdo;
     }
 
@@ -59,5 +59,19 @@ class TechnologieDAO{
         $result = $stmt->fetchAll();
         $stmt->closeCursor();
         return $result;
+    }
+
+    // Méthode de récupération des technologies liées à un projet
+    public function getTechnologiesByProjectId(int $idProjet): array{
+        $stmt = $this->pdo->prepare('
+            SELECT t.* FROM technologie t
+            JOIN projet_technologie pt ON t.id = pt.technologie_id
+            WHERE pt.projet_id = :idProjet
+        ');
+        $stmt->bindParam(':idProjet', $idProjet);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $this->hydrateAll($result);
     }
 }

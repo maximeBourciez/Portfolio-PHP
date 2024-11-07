@@ -12,7 +12,7 @@ class ControllerProjets extends Controller{
 
         // Récupérer tous les projets
         $projetDAO = new ProjetDAO($this->getPdo());
-        $projets = $projetDAO->getAll();
+        $projets = $projetDAO->getLastThree();
 
         // Affichage du rendu du template avec les variables
         echo $template->render([
@@ -23,7 +23,7 @@ class ControllerProjets extends Controller{
     }
 
     // Méthode pour afficher un projet
-    public function show(){
+    /*public function show(){
         // Import twig
         require_once("config/twig.php");
 
@@ -44,5 +44,5 @@ class ControllerProjets extends Controller{
             'projet' => $projet,
             'items' => $items
         ]);
-    }
+    }*/
 }

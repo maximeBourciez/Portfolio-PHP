@@ -24,7 +24,5 @@ require_once 'modeles/projet.class.php';
 require_once 'modeles/projet.dao.php';
 require_once 'modeles/technologie.class.php';
 require_once 'modeles/technologie.dao.php';
-require_once 'modeles/projet_technologie.class.php';
-require_once 'modeles/projet_technologie.dao.php';
 require_once 'modeles/itemsProjet.class.php';
 require_once 'modeles/itemsProjet.dao.php';

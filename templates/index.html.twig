@@ -4,43 +4,47 @@
 {% endblock %}
 
 {% block content %}
-	<div class="main">
-		<div class="info">
-			<h1>Salut, je suis Maxime BOURCIEZ
-				<br>Étudiant en Informatique</h1>
-			<p>Je suis étudiant en deuxième année de BUT Informatique au sein de l'IUT de Bayonne et du Pays Basque. J'ai toujours aimé coder et résoudre des problèmes grâce au codage, et c'est pourquoi j'ai choisi cette formation.</p>
-			<a href="assets\CV Maxime BOURCIEZ.png" download="assets\CV Maxime BOURCIEZ.png">
-				<button>Télécharger mon CV</button>
-			</a>
+	<div class="container my-5">
+		<div class="row align-items-center">
+			<div class="col-lg-6">
+				<h1>Salut, je suis Maxime BOURCIEZ<br>Étudiant en Informatique</h1>
+				<p>Je suis étudiant en deuxième année de BUT Informatique au sein de l'IUT de Bayonne et du Pays Basque. J'ai toujours aimé coder et résoudre des problèmes grâce au codage, et c'est pourquoi j'ai choisi cette formation.</p>
+				<a href="assets/CV Maxime BOURCIEZ.png" download="assets/CV Maxime BOURCIEZ.png" class="btn btn-primary">
+					Télécharger mon CV
+				</a>
+			</div>
+			<div class="col-lg-6 text-center">
+				<img src="assets/profile-1.png" alt="Photo de profil" class="img-fluid rounded-circle">
+			</div>
 		</div>
-		<img src="assets/profile-1.png">
+	</div>
+
+	<div class="bg-light py-5 text-center">
+		<h3>Quelques-uns de mes projets</h3>
+		<a href="works.html" class="btn btn-outline-primary mt-3">En découvrir +</a>
 	</div>
 
 
-	<div class="separator">
-		<h3>Quelques-uns de mes projets</h4>
-		<a href="works.html">En découvrir +</a>
-	</div>
-
-	<div class="featured">
+	<div class="row">
 		{% for project in projets %}
-			<div class="item">
-				<img src="{{ project.imageCover }}">
-				<div class="details">
-					<h3>{{ project.titre }}</h3>
-					<div class="item-info">
-						<div class="year-badge">{{ project.annee }}</div>
-						<h4>
-							{% for techno in project.technologies %}
-								{{ loop.first ? '' : ', ' }}{{ techno.nom }}
-							{% endfor %}
-						</h4>
+			<div class="col-md-4 mb-4">
+				<div class="card h-100 shadow-sm">
+					<img src="{{ project.imageCover }}" class="card-img-top w-100 p-2 image-rounded-top" style="height: 250px; object-fit: cover;" alt="Image de {{ project.titre }}">
+					<div class="card-body">
+						<h3 class="card-title">{{ project.titre }}</h3>
+						<div class="d-flex align-items-center">
+							<span class="badge bg-secondary me-2">{{ project.annee }}</span>
+							<h4 class="card-subtitle text-muted">
+								{% for techno in project.technologies %}
+									{{ loop.first ? '' : ', ' }}{{ techno.nom }}
+								{% endfor %}
+							</h4>
+						</div>
+						<p class="card-text mt-3">{{ project.description }}</p>
 					</div>
-					<p>{{ project.description }}</p>
 				</div>
 			</div>
 		{% endfor %}
-
 	</div>
 
 

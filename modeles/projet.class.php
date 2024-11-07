@@ -12,7 +12,7 @@ class Projet{
 
 
     // Constructeur
-    function __construct(?int $id, ?string $titre, ?string $description, ?string $imageCover, ?string $annee, ?array $technologies){
+    function __construct(?int $id = null, ?string $titre = null, ?string $description = null, ?string $imageCover = null, ?string $annee = null, ?array $technologies = null){
         $this->id = $id;
         $this->titre = $titre;
         $this->description = $description;
