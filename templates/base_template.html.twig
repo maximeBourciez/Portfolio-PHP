@@ -10,58 +10,65 @@
 		</title>
 		{# <link rel="stylesheet" href='style\style.css'> {% block stylesheets %}{% endblock %} #}
 		<link rel="stylesheet" href="SCSS/custom.css">
-		</head>
-		<body class="min-vh-100">
-			<header>
-				<nav class="navbar navbar-expand-lg navbar-light bg-light">
-					<div class="container">
-						<a class="navbar-brand" href="index.php">Maxime BOURCIEZ</a>
-						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-							<span class="navbar-toggler-icon"></span>
-						</button>
-						<div class="collapse navbar-collapse" id="navbarNav">
-							<ul class="navbar-nav ms-auto">
-								<li class="nav-item">
-									<a class="nav-link" href="index.php">Accueil</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="index.php?controller=projets&methode=index">Projets réalisés</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="#">Expériences</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="#">À propos de moi</a>
-								</li>
-							</ul>
-						</div>
+	</head>
+	<body class="min-vh-100">
+		<header>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<div
+					class="container-fluid d-flex justify-content-between">
+					<!-- Brand - Positionné à gauche -->
+					<a class="navbar-brand" href="index.php">Maxime BOURCIEZ</a>
+
+					<!-- Bouton pour affichage mobile -->
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+					<!-- Menu de navigation - Positionné à droite -->
+					<div class="collapse navbar-collapse" id="navbarNav">
+						<ul class="navbar-nav ms-auto">
+							<li class="nav-item">
+								<a class="nav-link" href="index.php">Accueil</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="index.php?controller=projets&methode=index">Projets réalisés</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Expériences</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">À propos de moi</a>
+							</li>
+						</ul>
 					</div>
-				</nav>
-			</header>
+				</div>
+			</nav>
+		</header>
 
-			<main class="container my-5"> {% block content %}{% endblock %}
-				</main>
 
-				<footer class="bg-light text-center py-4 b-0">
-					<div class="container">
-						<div class="d-flex justify-content-center mb-3">
-							<a href="#" class="me-3">
-								<i class='bx bxl-github fs-3'></i>
-							</a>
-							<a href="#" class="me-3">
-								<i class='bx bxl-instagram fs-3'></i>
-							</a>
-							<a href="#" class="me-3">
-								<i class='bx bxl-twitter fs-3'></i>
-							</a>
-							<a href="#">
-								<i class='bx bxl-linkedin-square fs-3'></i>
-							</a>
-						</div>
-						<p class="mb-0">Copyright ©2024, All rights reserved.</p>
+		<main class="container my-5"> {% block content %}{% endblock %}
+			</main>
+
+			<footer class="bg-light text-center py-4 b-0">
+				<div class="container">
+					<div class="d-flex justify-content-center mb-3">
+						<a href="#" class="me-3">
+							<i class='bx bxl-github fs-3'></i>
+						</a>
+						<a href="#" class="me-3">
+							<i class='bx bxl-instagram fs-3'></i>
+						</a>
+						<a href="#" class="me-3">
+							<i class='bx bxl-twitter fs-3'></i>
+						</a>
+						<a href="#">
+							<i class='bx bxl-linkedin-square fs-3'></i>
+						</a>
 					</div>
-				</footer>
+					<p class="mb-0">Copyright ©2024, All rights reserved.</p>
+				</div>
+			</footer>
 
 
-			</body>
-		</html>
+		</body>
+	</html>
