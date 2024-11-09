@@ -8,34 +8,37 @@
 		<h1 class="text-center mb-4">Projets</h1>
 		<p class="text-center">Voici les projets que j'ai réalisés.</p>
 
-		<form method="GET" action="index.php">
-			<input type="hidden" name="controller" value="projets">
-			<input type="hidden" name="methode" value="index">
-			<div class="form-group row">
-				<div class="col-md-6">
-					<label for="type">Type de projet</label>
-					<select name="type" id="type" class="form-control">
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<h2 class="mt-5">Tous mes projets</h2>
+			<form method="GET" action="index.php" class="d-flex align-items-end">
+				<input type="hidden" name="controller" value="projets">
+				<input type="hidden" name="methode" value="index">
+
+				<div class="form-group me-3">
+					<label for="type" class="form-label">Type de projet</label>
+					<select name="type" id="type" class="form-select">
 						<option value="">Tous</option>
 						<option value="Universitaire">Universitaire</option>
 						<option value="Personnel">Personnel</option>
 						<option value="Professionnel">Professionnel</option>
 					</select>
 				</div>
-				<div class="col-md-6">
-					<label for="techno">Technologie</label>
-					<select name="techno" id="techno" class="form-control">
+
+				<div class="form-group me-3">
+					<label for="techno" class="form-label">Technologie</label>
+					<select name="techno" id="techno" class="form-select">
 						<option value="">Toutes</option>
 						{% for techno in technologies %}
 							<option value="{{ techno.id }}">{{ techno.nom }}</option>
 						{% endfor %}
 					</select>
 				</div>
-			</div>
-			<button type="submit" class="btn btn-primary mt-4">Filtrer</button>
-		</form>
+
+				<button type="submit" class="btn btn-primary">Filtrer</button>
+			</form>
+		</div>
 
 
-		<h2 class="mt-5">Projets</h2>
 		<div class="content">
 			<div class="works-list pt-2">
 				{% for project in projets %}
