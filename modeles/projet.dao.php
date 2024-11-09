@@ -22,7 +22,7 @@ class ProjetDAO
         $projet->setImageCover($data['imageCover']);
         $projet->setAnnee($data['annee']);
         $projet->setType($data['type']);
-        
+
         // Récupérer les technologies associées
         $technologiesDAO = new TechnologieDAO($this->pdo);
         $technologies = $technologiesDAO->getTechnologiesByProjectId($data['id']);
@@ -92,31 +92,40 @@ class ProjetDAO
     }
 
     // Méthode pour récupérer tous les projets
-    public function findAll($type = '', $annee = ''): array
+    public function findAll($type = '', $techno = ''): array
     {
-        $query = "SELECT * FROM projet WHERE 1";
-
-        if ($type) {
-            $query .= " AND type = :type";
+        // Création de la requête en fonction des filtres
+        $sql = 'SELECT * FROM projet';
+        if ($type != '' || $techno != '') {
+            $sql .= ' WHERE ';
+            if ($type != '') {
+                $sql .= 'type = :type';
+            }
+            if ($techno != '') {
+                if ($type != '') {
+                    $sql .= ' AND ';
+                }
+                $sql .= 'id IN (SELECT projet_id FROM projet_technologie WHERE technologie_id = :techno)';
+            }
         }
 
-        if ($annee) {
-            $query .= " AND annee = :annee";
+        // Préparation de la requête
+        $stmt = $this->pdo->prepare($sql);
+
+        // Ajout des valeurs des filtres
+        if ($type != '') {
+            $stmt->bindValue(':type', $type, PDO::PARAM_STR);
+        }
+        if ($techno != '') {
+            $stmt->bindValue(':techno', $techno, PDO::PARAM_INT);
         }
 
-        $stmt = $this->pdo->prepare($query);
-
-        // Lier les paramètres dynamiquement
-        if ($type) {
-            $stmt->bindParam(':type', $type);
-        }
-
-        if ($annee) {
-            $stmt->bindParam(':annee', $annee, PDO::PARAM_INT);
-        }
-
+        // Exécution de la requête
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
+        // Utilisation de hydrateAll pour créer et retourner les objets Projet
+        return $this->hydrateAll($result);
+    }
 }
