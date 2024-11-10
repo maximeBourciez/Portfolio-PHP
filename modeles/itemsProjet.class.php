@@ -11,9 +11,13 @@ class ItemsProjet{
 
 
     // Constructeur
-    public function __construct(?int $id = null, ?Projet $projet = null, ?string $titre = null, ?string $description = null, ?string $image = null){
+    public function __construct(?int $id = null, int|Projet $projet = null, ?string $titre = null, ?string $description = null, ?string $image = null){
         $this->id = $id;
-        $this->projet = $projet;
+        if(is_int($projet)){
+            $this->projet = new Projet($projet);
+        }else{
+            $this->projet = $projet;
+        }
         $this->titre = $titre;
         $this->description = $description;
         $this->image = $image;

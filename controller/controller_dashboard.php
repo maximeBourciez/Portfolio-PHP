@@ -61,4 +61,6 @@ class ControllerDashboard extends Controller
             header('Location: index.php?controller=dashboard&methode=login');
         }
     }
+
+    
 }

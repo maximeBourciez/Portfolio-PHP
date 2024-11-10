@@ -16,7 +16,7 @@ class ItemsProjetDAO{
         $projet_id = $donnees['projet_id'];
         $titre = $donnees['titre'];
         $description = $donnees['description'];
-        $image = $donnees['image'];
+        $image = $donnees['imageCover'];
         return new ItemsProjet($id, $projet_id, $titre, $description, $image);
     }
 
@@ -50,5 +50,26 @@ class ItemsProjetDAO{
         $result = $stmt->fetchAll();
         $stmt->closeCursor();
         return $this->hydrateAll($result);
+    }
+
+    // Méthode de récupération des items d'un projet
+    public function findByProjetId(int $projet_id): array{
+        $stmt = $this->pdo->prepare('SELECT * FROM itemsProjet WHERE projet_id = :projet_id');
+        $stmt->bindParam(':projet_id', $projet_id);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $this->hydrateAll($result);
+    }
+
+    // Méthode de mise à jour
+    public function update(ItemsProjet $itemProjet): void{
+        $stmt = $this->pdo->prepare('UPDATE itemsProjet SET titre = :titre, description = :description, imageCover = :imageCover WHERE id = :id');
+        $stmt->bindParam(':id', $itemProjet->getId());
+        $stmt->bindParam(':titre', $itemProjet->getTitre());
+        $stmt->bindParam(':description', $itemProjet->getDescription());
+        $stmt->bindParam(':imageCover', $itemProjet->getImage());
+        $stmt->execute();
+        $stmt->closeCursor();
     }
 }
