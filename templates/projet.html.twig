@@ -1,0 +1,13 @@
+{% extends 'base_template.html.twig' %}
+
+{% block title %}Projet | {{ title }}{% endblock %}
+
+{% block content %}
+    <div class="container my-5">
+        <h1 class="text-center mb-4">{{ projet.titre }}</h1>
+        <p class="text-center">{{ projet.description }}</p>
+        <div class="d-flex justify-content-center mt-4">
+            <img src="{{ projet.imageCover }}" alt="Image de {{ projet.titre }}" class="img-fluid" style="height: 400px; object-fit: cover;">
+        </div>
+    </div>
+{% endblock %}

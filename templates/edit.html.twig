@@ -1,0 +1,72 @@
+{% extends 'base_template.html.twig' %}
+
+{% block title %}Modifier un projet | {{ title }}{% endblock %}
+
+{% block content %}
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Modifier un projet</h1>
+        <p class="text-center">Modifiez les informations du projet.</p>
+    </div>
+
+    <div class="container">
+        <form method="POST" action="index.php?controller=projets&methode=update" class="col-lg-6 mx-auto" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="{{ projet.id }}">
+            <div class="mb-3">
+                <label for="titre" class="form-label">Titre</label>
+                <input type="text" class="form-control" id="titre" name="titre" value="{{ projet.titre }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="5" required>{{ projet.description }}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="annee" class="form-label">Année</label>
+                <input type="number" class="form-control" id="annee" name="annee" value="{{ projet.annee }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="type" class="form-label">Type de projet</label>
+                <select name="type" id="type" class="form-select" required>
+                    <option value="Universitaire" {{ projet.type == 'Universitaire' ? 'selected' : '' }}>Universitaire</option>
+                    <option value="Personnel" {{ projet.type == 'Personnel' ? 'selected' : '' }}>Personnel</option>
+                    <option value="Professionnel" {{ projet.type == 'Professionnel' ? 'selected' : '' }}>Professionnel</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="technologies" class="form-label">Technologies</label>
+                <select name="technologies[]" id="technologies" class="form-select" multiple required>
+                    {% for techno in technologies %}
+                        <option value="{{ techno.id }}" {{ projet.technologies|filter(t => t.id == techno.id)|length > 0 ? 'selected' : '' }}>{{ techno.nom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="imageCover" class="form-label">Image de couverture</label>
+                <input type="file" class="form-control" id="imageCover" name="imageCover">
+            </div>
+            <button type="submit" class="btn btn-primary">Modifier</button>
+            <div class="mb-3">
+            <h2 class="mt-5">Items</h2>
+                <!-- Afficher et permettre la modif tous les les $items -->
+                {% for item in items %}
+                    <div class="mb-3">
+                        <label for="titre" class="form-label">Titre</label>
+                        <input type="text" class="form-control" id="titre" name="titre" value="{{ item.titre }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="5" required>{{ item.description }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lien" class="form-label">Lien</label>
+                        <input type="text" class="form-control" id="lien" name="lien" value="{{ item.lien }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="image" name="image">
+                    </div>
+                {% endfor %}
+            </div>
+
+        </form>
+    </div>
+{% endblock %}
