@@ -20,6 +20,11 @@ class Controller{
         if (isset($_POST) && !empty($_POST)){
             $this->post = $_POST;
         }
+
+        // Vérifier la session
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
     }
 
     public function call(string $methode): mixed{

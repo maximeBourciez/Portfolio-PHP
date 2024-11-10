@@ -1,3 +1,7 @@
+<?php
+	session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -14,17 +18,11 @@
 	<body class="min-vh-100">
 		<header>
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<div
-					class="container-fluid d-flex justify-content-between">
-					<!-- Brand - Positionné à gauche -->
+				<div class="container-fluid d-flex justify-content-between">
 					<a class="navbar-brand" href="index.php">Maxime BOURCIEZ</a>
-
-					<!-- Bouton pour affichage mobile -->
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
-
-					<!-- Menu de navigation - Positionné à droite -->
 					<div class="collapse navbar-collapse" id="navbarNav">
 						<ul class="navbar-nav ms-auto">
 							<li class="nav-item">
@@ -65,6 +63,12 @@
 							<i class='bx bxl-linkedin-square fs-3'></i>
 						</a>
 					</div>
+					{% if user %}
+						<a href="index.php?controller=dashboard&methode=logout" class="btn btn-outline-secondary my-3">Déconnexion</a>
+					{% else %}
+						<a href="index.php?controller=dashboard&methode=login" class="btn btn-outline-secondary my-3">Accès administrateur</a>
+					{% endif %}
+
 					<p class="mb-0">Copyright ©2024, All rights reserved.</p>
 				</div>
 			</footer>
