@@ -50,7 +50,7 @@ class ControllerProjets extends Controller
         // Récupérer les items du projet
         $items = $projetDAO->getItems($this->getGet()['id_projet']);
         $itemsProjetDAO = new ItemsProjetDAO($this->getPdo());
-        $items = $itemsProjetDAO->findAll();
+        $items = $itemsProjetDAO->findByProjetId($i);
 
         // Affichage du rendu du template avec les variables
         echo $template->render(context: [
