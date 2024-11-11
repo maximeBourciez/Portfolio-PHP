@@ -181,4 +181,16 @@ class ProjetDAO
         $stmt->execute();
         $stmt->closeCursor();
     }
+
+    // Méthode de suppression d'un proejt
+    public function delete(int $id): void
+    {
+        $stmt = $this->pdo->prepare('
+            DELETE FROM projet
+            WHERE id = :id
+        ');
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
 }

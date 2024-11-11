@@ -200,17 +200,29 @@ class ControllerProjets extends Controller
         // Récupérer les technologies et créer les associations
         foreach ($technologies as $techno) {
             $projetDAO->addTechnologie($idProjet, $techno);
-        }
+        }    
 
-        
-
-        $template = $this->getTwig()->load('create.html.twig');
+        $template = $this->getTwig()->load('dashboard.html.twig');
         echo $template->render([
             'title' => 'Création d\'un projet',
             'description' => 'Ajouter un projet',
             'technologies' => $technologies,
             'items' => $items,
-            'user' => $_SESSION['user'] ?? null
+            'user' => $_SESSION['user'] ?? null,
+            'status' => 'successInsert'
         ]);
+    }
+
+    // Méthode pour supprimer un projet
+    public function delete(){
+        // Récupérer l'id du projet
+        $id = $this->getGet()['id'];
+
+        // Supprimer le projet
+        $projetDAO = new ProjetDAO($this->getPdo());
+        $projetDAO->delete($id);
+
+        // Rediriger vers la liste des projets
+        header('Location: index.php?controller=dashboard&methode=index');
     }
 }
