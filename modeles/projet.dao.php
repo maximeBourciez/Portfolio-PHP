@@ -128,4 +128,57 @@ class ProjetDAO
         // Utilisation de hydrateAll pour créer et retourner les objets Projet
         return $this->hydrateAll($result);
     }
+
+    // Méthode de modification d'un projet
+    public function update(Projet $projet): void
+    {
+        $stmt = $this->pdo->prepare('
+            UPDATE projet
+            SET titre = :titre, description = :description, imageCover = :imageCover, annee = :annee, type = :type
+            WHERE id = :id
+        ');
+        $stmt->bindValue(':id', $projet->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(':titre', $projet->getTitre(), PDO::PARAM_STR);
+        $stmt->bindValue(':description', $projet->getDescription(), PDO::PARAM_STR);
+        $stmt->bindValue(':imageCover', $projet->getImageCover(), PDO::PARAM_STR);
+        $stmt->bindValue(':annee', $projet->getAnnee(), PDO::PARAM_INT);
+        $stmt->bindValue(':type', $projet->getType(), PDO::PARAM_STR);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
+
+    // Méthode d'insertion d'un projet
+    public function insert(Projet $projet): void
+    {
+        $stmt = $this->pdo->prepare('
+            INSERT INTO projet (titre, description, imageCover, annee, type)
+            VALUES (:titre, :description, :imageCover, :annee, :type)
+        ');
+        $stmt->bindValue(':titre', $projet->getTitre(), PDO::PARAM_STR);
+        $stmt->bindValue(':description', $projet->getDescription(), PDO::PARAM_STR);
+        $stmt->bindValue(':imageCover', $projet->getImageCover(), PDO::PARAM_STR);
+        $stmt->bindValue(':annee', $projet->getAnnee(), PDO::PARAM_INT);
+        $stmt->bindValue(':type', $projet->getType(), PDO::PARAM_STR);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
+
+    // Méthode de récupération de l'id du dernier projet inséré
+    public function getLastId(): int
+    {
+        return $this->pdo->lastInsertId();
+    }
+
+    // Ajout d'une technologie à un projet
+    public function addTechnologie(int $idProjet, int $idTechno): void
+    {
+        $stmt = $this->pdo->prepare('
+            INSERT INTO projet_technologie (projet_id, technologie_id)
+            VALUES (:projet_id, :technologie_id)
+        ');
+        $stmt->bindValue(':projet_id', $idProjet, PDO::PARAM_INT);
+        $stmt->bindValue(':technologie_id', $idTechno, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
 }

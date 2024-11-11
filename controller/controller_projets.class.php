@@ -29,7 +29,8 @@ class ControllerProjets extends Controller
             'title' => 'Projets',
             'description' => 'Liste des projets',
             'projets' => $projets,
-            'technologies' => $technologies
+            'technologies' => $technologies,
+            'user' => $_SESSION['user'] ?? null
         ]);
     }
 
@@ -47,14 +48,17 @@ class ControllerProjets extends Controller
         $projet = $projetDAO->getById($this->getGet()['id_projet']);
 
         // Récupérer les items du projet
-        $items = $projetDAO->getItems($this->getGet()['id']);
+        $items = $projetDAO->getItems($this->getGet()['id_projet']);
+        $itemsProjetDAO = new ItemsProjetDAO($this->getPdo());
+        $items = $itemsProjetDAO->findAll();
 
         // Affichage du rendu du template avec les variables
         echo $template->render(context: [
             'title' => $projet->getTitre(),
             'description' => $projet->getDescription(),
             'projet' => $projet,
-            'items' => $items
+            'items' => $items,
+            'user' => $_SESSION['user'] ?? null
         ]);
     }
 
@@ -89,7 +93,8 @@ class ControllerProjets extends Controller
             'description' => 'Modifier un projet',
             'projet' => $projet,
             'technologies' => $technologies,
-            'items' => $items
+            'items' => $items,
+            'user' => $_SESSION['user'] ?? null
         ]);
     }
 
@@ -140,5 +145,72 @@ class ControllerProjets extends Controller
 
         // Rediriger vers la liste des projets
         header('Location: index.php?controller=projets&methode=index');
+    }
+
+    // Méthode de création d'un projet
+    public function create(){
+        require_once("config/twig.php");
+
+        // Vérifier si l'utilisateur est connecté
+        if (!isset($_SESSION['user'])) {
+            header('Location: index.php?controller=dashboard&methode=login');
+            return;
+        }
+
+        // Récupérer les saisies du formulaire
+        $titre = $_POST['titre'];
+        $description = $_POST['description'];
+        $annee = $_POST['annee'];
+        $type = $_POST['type'];
+        $technologies = $_POST['technologies'];
+        // $items = $_POST['items'];
+        $imageCover = $_FILES['imageCover'];
+
+        // Vérifier si l'image a été uploadée
+        if ($imageCover['size'] > 0) {
+            // Récupérer l'extension de l'image
+            $extension = pathinfo($imageCover['name'], PATHINFO_EXTENSION);
+
+            // Vérifier si l'extension est autorisée
+            if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
+                header('Location: index.php?controller=projets&methode=create');
+                return;
+            }
+
+            // Déplacer l'image
+            move_uploaded_file($imageCover['tmp_name'], 'assets/coversProjets/' . $imageCover['name']);
+            $imageCover = 'assets/images/' . $imageCover['name'];
+        } else {
+            $imageCover = '';
+        }
+
+        // Gérer les technologies
+        // $technologies = explode(',', $technologies);
+
+        // Créer le projet
+        $projet = new Projet(null, $titre, $description, $imageCover, $annee, $type, $technologies);
+
+        // Ajouter le projet
+        $projetDAO = new ProjetDAO($this->getPdo());
+        $projetDAO->insert($projet);
+
+        // Récupérer l'id du projet
+        $idProjet = $projetDAO->getLastId();
+
+        // Récupérer les technologies et créer les associations
+        foreach ($technologies as $techno) {
+            $projetDAO->addTechnologie($idProjet, $techno);
+        }
+
+        
+
+        $template = $this->getTwig()->load('create.html.twig');
+        echo $template->render([
+            'title' => 'Création d\'un projet',
+            'description' => 'Ajouter un projet',
+            'technologies' => $technologies,
+            'items' => $items,
+            'user' => $_SESSION['user'] ?? null
+        ]);
     }
 }

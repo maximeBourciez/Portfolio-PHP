@@ -62,5 +62,27 @@ class ControllerDashboard extends Controller
         }
     }
 
+    // Méthode d'ajout d'un projet
+    public function create(){
+        require_once("config/twig.php");
+
+        // Vérifier si l'utilisateur est connecté
+        if (!isset($_SESSION['user'])) {
+            header('Location: index.php?controller=dashboard&methode=login');
+            return;
+        }
+
+        // Récupérer les technologies
+        $technologieDAO = new TechnologieDAO($this->getPdo());
+        $technologies = $technologieDAO->findAll();
+
+        $template = $this->getTwig()->load('create.html.twig');
+        echo $template->render([
+            'title' => 'Créer un projet',
+            'description' => 'Créer un nouveau projet',
+            'technologies' => $technologies,
+            'user' => $_SESSION['user'] ?? null
+        ]);
+    }
     
 }

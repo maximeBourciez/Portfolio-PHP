@@ -18,7 +18,8 @@ class ControllerIndex extends Controller{
         echo $template->render([
             'title' => 'Accueil',
             'description' => 'Bienvenue sur le site de la formation PHP',
-            'projets' => $projets
+            'projets' => $projets,
+            'user' => $_SESSION['user'] ?? null
         ]);
     }
 }
