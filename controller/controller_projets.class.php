@@ -179,7 +179,7 @@ class ControllerProjets extends Controller
 
             // Déplacer l'image
             move_uploaded_file($imageCover['tmp_name'], 'assets/coversProjets/' . $imageCover['name']);
-            $imageCover = 'assets/images/' . $imageCover['name'];
+            $imageCover = 'assets/coversProjets/' . $imageCover['name'];
         } else {
             $imageCover = '';
         }

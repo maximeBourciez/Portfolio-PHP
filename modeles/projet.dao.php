@@ -185,9 +185,58 @@ class ProjetDAO
     // Méthode de suppression d'un proejt
     public function delete(int $id): void
     {
+
+        // Supprimer la couverture du projet
+        $stmt = $this->pdo->prepare('
+         SELECT imageCover FROM projet
+         WHERE id = :id
+        ');
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        if (file_exists($result['imageCover'])) {
+            unlink($result['imageCover']);
+        }
+
+        // Supprimer les images des items du projet du dossier
+        $stmt = $this->pdo->prepare('
+         SELECT imageCover FROM itemsProjet
+         WHERE projet_id = :id
+     ');
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        foreach ($result as $item) {
+            if (file_exists($item['image'])) {
+                unlink($item['image']);
+            }
+        }
+
+        // Supprimer dans la BD
         $stmt = $this->pdo->prepare('
             DELETE FROM projet
             WHERE id = :id
+        ');
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+
+        // Supprimer les associations avec les technologies
+        $stmt = $this->pdo->prepare('
+            DELETE FROM projet_technologie
+            WHERE projet_id = :id
+        ');
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+
+        // Supprimer les items
+        $stmt = $this->pdo->prepare('
+            DELETE FROM itemsProjet
+            WHERE projet_id = :id
         ');
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
