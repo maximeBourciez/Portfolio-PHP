@@ -67,7 +67,7 @@ class ControllerProjets extends Controller
         require_once("config/twig.php");
 
         // Récupérer l'id du projet
-        $idProjet = $this->getGet()['id'];
+        $idProjet = $this->getGet()['id_projet'];
 
         // Vérifier si l'utilisateur est connecté
         if (!isset($_SESSION['user'])) {
@@ -168,15 +168,6 @@ class ControllerProjets extends Controller
 
         // Vérifier si l'image a été uploadée
         if ($imageCover['size'] > 0) {
-            // Récupérer l'extension de l'image
-            $extension = pathinfo($imageCover['name'], PATHINFO_EXTENSION);
-
-            // Vérifier si l'extension est autorisée
-            if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
-                header('Location: index.php?controller=projets&methode=create');
-                return;
-            }
-
             // Déplacer l'image
             move_uploaded_file($imageCover['tmp_name'], 'assets/coversProjets/' . $imageCover['name']);
             $imageCover = 'assets/coversProjets/' . $imageCover['name'];
@@ -185,7 +176,6 @@ class ControllerProjets extends Controller
         }
 
         // Gérer les technologies
-        // $technologies = explode(',', $technologies);
 
         // Créer le projet
         $projet = new Projet(null, $titre, $description, $imageCover, $annee, $type, $technologies);
@@ -216,7 +206,7 @@ class ControllerProjets extends Controller
     // Méthode pour supprimer un projet
     public function delete(){
         // Récupérer l'id du projet
-        $id = $this->getGet()['id'];
+        $id = $this->getGet()['id_projet'];
 
         // Supprimer le projet
         $projetDAO = new ProjetDAO($this->getPdo());
