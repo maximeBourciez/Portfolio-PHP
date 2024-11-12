@@ -1,18 +1,47 @@
 <?php
 
-// Classe pour les projets - DAO
+/**
+ * 
+ * @brief Classe ProjetDAO - Gestion des projets
+ * 
+ * @details Classe pour gérer les projets (titre, description, image, annee, type) en base de données
+ * 
+ * @date 12 Novembre 2024
+ * 
+ * @author Maxime Bourciez <maxime.bourciez@gmail.com>
+ */
 class ProjetDAO
 {
     // Attributs
-    private PDO|null $pdo; // Base de données
+    /**
+     * @brief Instance de PDO pour la connexion à la base de données
+     * @var PDO|null $pdo Instance de PDO
+     */
+    private PDO|null $pdo;
 
     // Constructeur
+    /**
+     * @brief Constructeur de la classe
+     * 
+     * @details Constructeur avec une valeur par défaut pour l'attribut permettant de créer un objet sans paramètres
+     * 
+     * @param PDO|null $pdo Instance de PDO
+     */
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
     }
 
     // Méthodes d'hydratation
+    /**
+     * @brief Méthode pour hydrater un objet Projet
+     * 
+     * @details Méthode qui prend un tableau de données contenant les infos d'un Projet SEUL et retourne un objet Projet
+     * 
+     * @param array $data
+     * 
+     * @return Projet
+     */
     public function hydrate(array $data): Projet
     {
         $projet = new Projet();
@@ -31,6 +60,15 @@ class ProjetDAO
         return $projet;
     }
 
+    /**
+     * @brief Méthode pour hydrater un tableau d'objets Projet
+     * 
+     * @details Méthode qui prend un tableau de données contenant les infos de 0..* projets et retourne un tableau d'objets Projet
+     * 
+     * @param array $datas
+     * 
+     * @return array<Projet>|null
+     */
     public function hydrateAll(array $datas): array
     {
         $projets = [];
@@ -42,7 +80,13 @@ class ProjetDAO
     }
 
 
-    // Méthode pour récupérer les 3 derniers projets
+    /**
+     * @brief Méthode pour récupérer les 3 derniers projets
+     * 
+     * @details Méthode qui récupère les 3 derniers projets ajoutés en base de données afin de les afficher sur la page d'accueil
+     * 
+     * @return array<Projet>|null
+     */
     public function getLastThree(): array
     {
         $stmt = $this->pdo->prepare('
@@ -58,7 +102,17 @@ class ProjetDAO
         return $this->hydrateAll($result);
     }
 
-    // Méthode pour récupérer un projet par son id
+    /**
+     * @brief Méthode pour récupérer un projet par son identifiant
+     * 
+     * @details Méthode qui récupère un projet en base de données en fonction de son identifiant - Utile pour l'affichage d'un projet en particulier
+     * 
+     * @param int $id
+     * 
+     * @return Projet
+     * 
+     * @warning Peut-être throw en cas de non-résultat
+     */
     public function getById(int $id): Projet
     {
         $stmt = $this->pdo->prepare('
@@ -74,7 +128,13 @@ class ProjetDAO
         return $this->hydrate($result);
     }
 
-    // Méthode pour récupérer les items d'un projet
+    /**
+     * @brief Méthode pour récupérer les items d'un projet par son identifiant
+     * 
+     * @param int $id
+     * 
+     * @return array<ItemsProjet>
+     */
     public function getItems(int $id): array
     {
         $stmt = $this->pdo->prepare('
@@ -91,7 +151,17 @@ class ProjetDAO
         return $itemsProjetDAO->hydrateAll($result);
     }
 
-    // Méthode pour récupérer tous les projets
+    /**
+     * @brief Méthode pour récupérer tous les projets
+     * 
+     * @details Méthode qui récupère tous les projets en base de données - Les récupère aussi avec les filtres si besoin ( <=> non nuls )
+     * 
+     * @param mixed $type
+     * 
+     * @param mixed $techno
+     * 
+     * @return array<Projet>|null
+     */
     public function findAll($type = '', $techno = ''): array
     {
         // Création de la requête en fonction des filtres
@@ -129,7 +199,17 @@ class ProjetDAO
         return $this->hydrateAll($result);
     }
 
-    // Méthode de modification d'un projet
+    /**
+     * @brief Méthode pour mettre à jour un projet
+     * 
+     * @details Méthode qui met à jour un projet en base de données en fonction de l'objet Projet passé en paramètre
+     * 
+     * @param Projet $projet
+     * 
+     * @return void
+     * 
+     * @warning Non terminée - Il manque la gestion des technologies & réfléchir l'implémentation des items
+     */
     public function update(Projet $projet): void
     {
         $stmt = $this->pdo->prepare('
@@ -147,7 +227,15 @@ class ProjetDAO
         $stmt->closeCursor();
     }
 
-    // Méthode d'insertion d'un projet
+    /**
+     * @brief Méthode pour insérer un projet
+     * 
+     * @details Méthode qui insère un projet en base de données en fonction de l'objet Projet passé en paramètre 
+     * 
+     * @param Projet $projet
+     * 
+     * @return void
+     */
     public function insert(Projet $projet): void
     {
         $stmt = $this->pdo->prepare('
@@ -163,13 +251,25 @@ class ProjetDAO
         $stmt->closeCursor();
     }
 
-    // Méthode de récupération de l'id du dernier projet inséré
+    /**
+     * @brief Méthode pour récupérer le dernier identifiant inséré
+     * 
+     * @return int
+     */
     public function getLastId(): int
     {
         return $this->pdo->lastInsertId();
     }
 
-    // Ajout d'une technologie à un projet
+    /**
+     * @brief Méthode pour ajouter une technologie à un projet par les id de l'un et de l'autre
+     * 
+     * @param int $idProjet
+     * 
+     * @param int $idTechno
+     * 
+     * @return void
+     */
     public function addTechnologie(int $idProjet, int $idTechno): void
     {
         $stmt = $this->pdo->prepare('
@@ -182,7 +282,15 @@ class ProjetDAO
         $stmt->closeCursor();
     }
 
-    // Méthode de suppression d'un proejt
+    /**
+     * @brief Méthode pour supprimer un projet
+     * 
+     * @details Méthode qui supprime un projet en base de données en fonction de son identifiant. Supprime également les images en dur et les liens avec les technologies, ainsi que les items associés.
+     * 
+     * @param int $id - Identifiant du projet a supprimer
+     * 
+     * @return void
+     */
     public function delete(int $id): void
     {
 

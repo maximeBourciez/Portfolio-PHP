@@ -1,12 +1,32 @@
 <?php
 
+/**
+ * @brief Classe Bd - Singleton pour la connexion à la base de données
+ * 
+ * @date 5 Novembre 2024
+ * 
+ * @author Maxime Bourciez <maxime.bourciez@gmail.com>
+ */
 class Bd{
     // Attributs
-    private static ?Bd $instance = null; // Instance de la classe
-    private ?PDO $pdo; // Objet PDO
+     /**
+     * @brief Instance unique de la classe Bd
+     * @var Bd|null $instance Instance de la classe 
+     * @private
+     */
+    private static ?Bd $instance = null; 
+    /**
+     * @var PDO $pdo Objet PDO pour la connexion à la base de données
+     */
+    private ?PDO $pdo; 
 
 
-    // Constructeur
+    /**
+     * @brief Constructeur de la classe
+     * 
+     * @details Constructeur privé pour empêcher l'instanciation de la classe depuis l'extérieur
+     * 
+     */
     private function __construct(){
         try {
             $this->pdo = new PDO('mysql:host='. DB_HOST . ';dbname='. DB_NAME, DB_USER, DB_PASS);
@@ -18,7 +38,11 @@ class Bd{
         }
     }
 
-    // Méthode propre au Singleton 
+    /**
+     * @brief Méthode pour récupérer l'instance de la classe
+     * 
+     * @return Bd
+     */
     public static function getInstance(): Bd{
         if (self::$instance == null){
             self::$instance = new Bd();
@@ -26,17 +50,31 @@ class Bd{
         return self::$instance;
     }
 
-    // Méthode pour récupérer la connexion
+    /**
+     * @brief Méthode pour récupérer la connexion à la base de données
+     * 
+     * @return PDO
+     */
     public function getConnexion(): PDO{
         return $this->pdo;
     }
 
-    // Empecher de cloner l'objet
+    /**
+     * 
+     * @brief Méthode pour empêcher le clonage de l'objet
+     * 
+     * @return void
+     */
     private function __clone(){
 
     }
 
-    // Empecher de deserialiser l'objet
+    /**
+     * 
+     * @brief Méthode pour empêcher la désérialisation de l'objet
+     * 
+     * @return void
+     */
     public function __wakeup(){
             throw new Exception("Un singleton ne doit pas être deserialisé");
     }

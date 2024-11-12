@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * @file index.php
+ * 
+ * @brief Point d'entrée de l'application
+ * 
+ * @details Ce fichier est le point d'entrée de l'application. Il permet de rediriger les requêtes vers les bons contrôleurs et méthodes.
+ * 
+ * @author Maxime Bourciez <maxime.bourciez@gmail.com>
+ */
+
 //Ajout du code commun à toutes les pages
 require_once 'include.php';
 

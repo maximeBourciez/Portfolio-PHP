@@ -1,6 +1,15 @@
 <?php 
 
-// Classe pour les technologie - DAO
+/**
+ * 
+ * @brief Classe TechnologieDAO - Gestion des technologies
+ * 
+ * @details Classe pour gérer les technologies (nom, logo, niveau de maîtrise)
+ * 
+ * @date 12 Novembre 2024
+ * 
+ * @author Maxime Bourciez <maxime.bourciez@gmail.com>
+ */
 class TechnologieDAO{
     // Attributs
     private ?PDO $pdo; // Instance de PDO
