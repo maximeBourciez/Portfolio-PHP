@@ -123,8 +123,8 @@ class ControllerProjets extends Controller
             }
 
             // Déplacer l'image
-            move_uploaded_file($image['tmp_name'], 'assets/images/' . $image['name']);
-            $imageCover = 'assets/images/' . $image['name'];
+            move_uploaded_file($image['tmp_name'], 'assets/coversProjets/' . $image['name']);
+            $imageCover = 'assets/coversProjets/' . $image['name'];
         } else {
             $imageCover = '';
         }
@@ -185,15 +185,7 @@ class ControllerProjets extends Controller
             $projetDAO->addTechnologie($idProjet, $techno);
         }    
 
-        $template = $this->getTwig()->load('dashboard.html.twig');
-        echo $template->render([
-            'title' => 'Création d\'un projet',
-            'description' => 'Ajouter un projet',
-            'technologies' => $technologies,
-            // 'items' => $items,
-            'user' => $_SESSION['user'] ?? null,
-            'status' => 'successInsert'
-        ]);
+        $this->index();
     }
 
     // Méthode pour supprimer un projet

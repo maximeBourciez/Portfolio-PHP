@@ -139,7 +139,7 @@ class ProjetDAO
         $stmt = $this->pdo->prepare('
         DELETE FROM projet_technologie
         WHERE projet_id = :id
-    ');
+        ');
         $stmt->bindValue(':id', $projet->getId(), PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
@@ -154,6 +154,22 @@ class ProjetDAO
             $stmt->bindValue(':technologie_id', $techno, PDO::PARAM_INT);
             $stmt->execute();
             $stmt->closeCursor();
+        }
+
+        // Vérifier si une nouvelle image a été uploadée
+        if ($projet->getImageCover() != '') {
+            // Supprimer l'ancienne image
+            $stmt = $this->pdo->prepare('
+                    SELECT imageCover FROM projet
+                    WHERE id = :id
+            ');
+            $stmt->bindValue(':id', $projet->getId(), PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt->closeCursor();
+            if (file_exists($result['imageCover'])) {
+                unlink($result['imageCover']);
+            }
         }
 
         // Mettre à jour le projet
