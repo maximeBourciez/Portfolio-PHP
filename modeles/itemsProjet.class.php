@@ -4,7 +4,7 @@
 class ItemsProjet{
     // Attributs
     private ?int $id; // Identifiant
-    private ?Projet $projet; // Projet
+    private int|Projet $projet; // Projet
     private ?string $titre; // Titre
     private ?string $description; // Description
     private ?string $image; // Image
@@ -30,7 +30,7 @@ class ItemsProjet{
         return $this->id;
     }
 
-    public function getProjet(): ?Projet{
+    public function getProjet(): int|Projet{
         return $this->projet;
     }
 
@@ -52,7 +52,7 @@ class ItemsProjet{
         $this->id = $id;
     }
 
-    public function setProjet(?Projet $projet): void{
+    public function setProjet(int|Projet $projet): void{
         $this->projet = $projet;
     }
 

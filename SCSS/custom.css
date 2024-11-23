@@ -1,4 +1,9 @@
 @charset "UTF-8";
+.btn-success,
+.btn-danger {
+  color: #fff !important;
+}
+
 html, body {
   height: 100%;
   margin: 0;

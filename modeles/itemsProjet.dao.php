@@ -72,4 +72,31 @@ class ItemsProjetDAO{
         $stmt->execute();
         $stmt->closeCursor();
     }
+
+    // Méhode d'ajout
+    public function add(ItemsProjet $itemProjet): void{
+
+        // Récupérer les informations
+        $path = '';
+        $imageCover = $itemProjet->getImage();
+        $titre = $itemProjet->getTitre();
+        $description = $itemProjet->getDescription();     
+
+        // Récupérer l'id du projet
+        $projet_id = $itemProjet->getProjet();
+
+        // Si ce n'ets pas un entier, on le convertit
+        if (!is_int($projet_id)) {
+            $projet_id = $projet_id->getId();
+        }
+
+        // Ajouter l'item
+        $stmt = $this->pdo->prepare('INSERT INTO itemsProjet (titre, description, imageCover, projet_id) VALUES (:titre, :description, :imageCover, :projet_id)');
+        $stmt->bindParam(':titre', $titre);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':imageCover', $path);
+        $stmt->bindParam(':projet_id', $projet_id);
+        $stmt->execute();
+    }
+
 }
