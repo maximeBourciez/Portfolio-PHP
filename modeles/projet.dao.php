@@ -212,11 +212,52 @@ class ProjetDAO
      */
     public function update(Projet $projet): void
     {
+        // Récupérer toutes les technologies associées
+        $technologies = $projet->getTechnologies();
+
+        // Supprimer les associations actuelles avec les technologies
         $stmt = $this->pdo->prepare('
-            UPDATE projet
-            SET titre = :titre, description = :description, imageCover = :imageCover, annee = :annee, type = :type
-            WHERE id = :id
+        DELETE FROM projet_technologie
+        WHERE projet_id = :id
         ');
+        $stmt->bindValue(':id', $projet->getId(), PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+
+        foreach ($technologies as $techno) {
+            // Ajouter les nouvelles associations avec les technologies
+            $stmt = $this->pdo->prepare('
+            INSERT INTO projet_technologie (projet_id, technologie_id)
+            VALUES (:projet_id, :technologie_id)
+        ');
+            $stmt->bindValue(':projet_id', $projet->getId(), PDO::PARAM_INT);
+            $stmt->bindValue(':technologie_id', $techno, PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt->closeCursor();
+        }
+
+        // Vérifier si une nouvelle image a été uploadée
+        if ($projet->getImageCover() != '') {
+            // Supprimer l'ancienne image
+            $stmt = $this->pdo->prepare('
+                    SELECT imageCover FROM projet
+                    WHERE id = :id
+            ');
+            $stmt->bindValue(':id', $projet->getId(), PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt->closeCursor();
+            if (file_exists($result['imageCover'])) {
+                unlink($result['imageCover']);
+            }
+        }
+
+        // Mettre à jour le projet
+        $stmt = $this->pdo->prepare('
+        UPDATE projet
+        SET titre = :titre, description = :description, imageCover = :imageCover, annee = :annee, type = :type
+        WHERE id = :id
+    ');
         $stmt->bindValue(':id', $projet->getId(), PDO::PARAM_INT);
         $stmt->bindValue(':titre', $projet->getTitre(), PDO::PARAM_STR);
         $stmt->bindValue(':description', $projet->getDescription(), PDO::PARAM_STR);
@@ -227,6 +268,7 @@ class ProjetDAO
         $stmt->closeCursor();
     }
 
+<<<<<<< HEAD
     /**
      * @brief Méthode pour insérer un projet
      * 
@@ -236,6 +278,10 @@ class ProjetDAO
      * 
      * @return void
      */
+=======
+
+    // Méthode d'insertion d'un projet
+>>>>>>> 11e56cc09514f7ecba36006a0d0fb18c40366874
     public function insert(Projet $projet): void
     {
         $stmt = $this->pdo->prepare('

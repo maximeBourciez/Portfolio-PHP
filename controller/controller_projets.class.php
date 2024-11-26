@@ -145,11 +145,8 @@ class ControllerProjets extends Controller
         $type = $this->getPost()['type'];
         $technologies = $this->getPost()['technologies'];
 
-        // Récupérer les items
-        $items = $this->getPost()['items'];
-
         // Récupérer l'image
-        $image = $_FILES['image'];
+        $image = $_FILES['imageCover'];
 
         // Vérifier si l'image a été uploadée
         if ($image['size'] > 0) {
@@ -163,8 +160,8 @@ class ControllerProjets extends Controller
             }
 
             // Déplacer l'image
-            move_uploaded_file($image['tmp_name'], 'assets/images/' . $image['name']);
-            $imageCover = 'assets/images/' . $image['name'];
+            move_uploaded_file($image['tmp_name'], 'assets/coversProjets/' . $image['name']);
+            $imageCover = 'assets/coversProjets/' . $image['name'];
         } else {
             $imageCover = '';
         }
@@ -175,10 +172,6 @@ class ControllerProjets extends Controller
         // Mettre à jour le projet
         $projetDAO = new ProjetDAO($this->getPdo());
         $projetDAO->update($projet);
-
-        // Mettre à jour les items
-        $itemDAO = new ItemsProjetDAO($this->getPdo());
-        $itemDAO->update($items);
 
         // Rediriger vers la liste des projets
         header('Location: index.php?controller=projets&methode=index');
@@ -238,15 +231,7 @@ class ControllerProjets extends Controller
             $projetDAO->addTechnologie($idProjet, $techno);
         }    
 
-        $template = $this->getTwig()->load('dashboard.html.twig');
-        echo $template->render([
-            'title' => 'Création d\'un projet',
-            'description' => 'Ajouter un projet',
-            'technologies' => $technologies,
-            'items' => $items,
-            'user' => $_SESSION['user'] ?? null,
-            'status' => 'successInsert'
-        ]);
+        $this->index();
     }
 
     /**

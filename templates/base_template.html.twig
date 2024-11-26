@@ -13,7 +13,9 @@
 			{% endblock %}
 		</title>
 		{# <link rel="stylesheet" href='style\style.css'> {% block stylesheets %}{% endblock %} #}
-		<link rel="stylesheet" href="SCSS/custom.css">
+		<link href="SCSS/custom.css" rel="stylesheet">
+		{# <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script> #}
+
 	</head>
 	<body class="min-vh-100">
 		<header>
@@ -37,6 +39,11 @@
 							<li class="nav-item">
 								<a class="nav-link" href="#">À propos de moi</a>
 							</li>
+							{% if user %}
+								<li class="nav-item">
+									<a class="nav-link" href="index.php?controller=dashboard&methode=index">Dashboard</a>
+								</li>
+							{% endif %}
 						</ul>
 					</div>
 				</div>
@@ -66,13 +73,13 @@
 					{% if user %}
 						<a href="index.php?controller=dashboard&methode=logout" class="btn btn-outline-danger my-3">Déconnexion</a>
 					{% endif %}
-						<a href="index.php?controller=dashboard&methode=login" class="btn btn-outline-secondary my-3">Accès administrateur</a>
-					
+					<a href="index.php?controller=dashboard&methode=login" class="btn btn-outline-secondary my-3">Accès administrateur</a>
+
 
 					<p class="mb-0">Copyright ©2024, All rights reserved.</p>
 				</div>
 			</footer>
 
-
+	<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 		</body>
 	</html>
