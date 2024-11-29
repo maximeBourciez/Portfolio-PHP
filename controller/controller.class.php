@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * 
+ * @brief Classe Controller - Classe mère des controllers
+ * 
+ * @details Classe qui contient les attributs et méthodes communs à tous les controllers
+ * 
+ * @author Maxime Bourciez <maxime.bourciez@gmail.com>
+ * 
+ * @date 5 Novembre 2024
+ * 
+ */
 class Controller{
     private PDO $pdo;
     private \Twig\Loader\FilesystemLoader $loader;

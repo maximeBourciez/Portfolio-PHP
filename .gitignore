@@ -1,4 +1,8 @@
 /vendor/
 /node_modules/
 /config/constantes.php
+<<<<<<< HEAD
+/docs/
+=======
 /docs
+>>>>>>> 11e56cc09514f7ecba36006a0d0fb18c40366874

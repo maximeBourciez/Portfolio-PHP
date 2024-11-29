@@ -1,16 +1,64 @@
 <?php
 
-// Classe pour les items du projet
+/**
+ * 
+ * @brief Classe ItemsProjet - Gestion des items d'un projet
+ * 
+ * @details Classe pour gérer les items d'un projet (titre, description, image)
+ * 
+ * @date 12 Novembre 2024
+ * 
+ * @author Maxime Bourciez <maxime.bourciez@gmail.com>
+ */
 class ItemsProjet{
     // Attributs
+<<<<<<< HEAD
+    /**
+     * @brief Identifiant
+     * @var int|null
+     */
+    private ?int $id; 
+    /**
+     * @brief Projet
+     * @var Projet|null
+     */
+    private ?Projet $projet;
+    /**
+     * @brief Titre
+     * @var string|null
+     */
+    private ?string $titre; 
+    /**
+     * @brief Description
+     * @var string|null
+     */
+    private ?string $description; 
+    /**
+     * @brief Image
+     * @var string|null
+     */
+    private ?string $image; 
+=======
     private ?int $id; // Identifiant
     private int|Projet $projet; // Projet
     private ?string $titre; // Titre
     private ?string $description; // Description
     private ?string $image; // Image
+>>>>>>> 11e56cc09514f7ecba36006a0d0fb18c40366874
 
 
     // Constructeur
+    /**
+     * @brief Constructeur de la classe
+     * 
+     * @details Constructeur avec des valeurs par défaut pour les attributs permettant de créer un objet sans paramètres
+     * 
+     * @param int|null $id Identifiant
+     * @param int|Projet $projet Projet
+     * @param string|null $titre Titre
+     * @param string|null $description Description
+     * @param string|null $image Image
+     */
     public function __construct(?int $id = null, int|Projet $projet = null, ?string $titre = null, ?string $description = null, ?string $image = null){
         $this->id = $id;
         if(is_int($projet)){
@@ -25,45 +73,113 @@ class ItemsProjet{
 
 
     // Encapsulation
-    // Getter
+    // Getters
+    /**
+     * @brief Getter pour l'identifiant
+     * 
+     * @return int|null
+     */
     public function getId(): ?int{
         return $this->id;
     }
 
+<<<<<<< HEAD
+    /**
+     * @brief Getter pour le projet
+     * 
+     * @return Projet|null
+     */
+    public function getProjet(): ?Projet{
+=======
     public function getProjet(): int|Projet{
+>>>>>>> 11e56cc09514f7ecba36006a0d0fb18c40366874
         return $this->projet;
     }
 
+    /**
+     * @brief Getter pour le titre
+     * 
+     * @return string|null
+     */
     public function getTitre(): ?string{
         return $this->titre;
     }
 
+    /**
+     * @brief Getter pour la description
+     * 
+     * @return string|null
+     */
     public function getDescription(): ?string{
         return $this->description;
     }
 
+    /**
+     * @brief Getter pour l'image
+     * 
+     * @return string|null
+     */
     public function getImage(): ?string{
         return $this->image;
     }
 
     
-    // Setter
+    // Setters
+    /**
+     * @brief Setter pour l'identifiant
+     * 
+     * @param int|null $id Identifiant
+     * 
+     * @return void
+     */
     public function setId(?int $id): void{
         $this->id = $id;
     }
 
+<<<<<<< HEAD
+    /**
+     * @brief Setter pour le projet
+     * 
+     * @param Projet|null $projet Projet
+     * 
+     * @return void
+     */
+    public function setProjet(?Projet $projet): void{
+=======
     public function setProjet(int|Projet $projet): void{
+>>>>>>> 11e56cc09514f7ecba36006a0d0fb18c40366874
         $this->projet = $projet;
     }
 
+    /**
+     * @brief Setter pour le titre
+     * 
+     * @param string|null $titre Titre
+     * 
+     * @return void
+     */
     public function setTitre(?string $titre): void{
         $this->titre = $titre;
     }
 
+    /**
+     * @brief Setter pour la description
+     * 
+     * @param string|null $description Description
+     * 
+     * @return void
+     */
     public function setDescription(?string $description): void{
         $this->description = $description;
     }
 
+    /**
+     * @brief Setter pour l'image
+     * 
+     * @param string|null $image Image
+     * 
+     * @return void
+     */
     public function setImage(?string $image): void{
         $this->image = $image;
     }

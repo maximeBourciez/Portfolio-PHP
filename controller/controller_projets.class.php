@@ -1,9 +1,24 @@
 <?php
 
-// Controller pour les projets
+/**
+ * 
+ * @brief Controller des projets - Gère les projets
+ * 
+ * @author Maxime Bourciez <maxime.bourciez@gmail.com>
+ * 
+ * @date 12 Novembre 2024
+ */
 class ControllerProjets extends Controller
 {
-    // Méthode pour afficher la liste des projets
+    /**
+     * 
+     * @brief Méthode pour afficher la liste des projets
+     * 
+     * @details Méthode qui récupère la liste de tous les projets et les technologies dans la BD. 
+     *          La liste des projets sert pour l'affichage, et la liste des technologies pour les filtres. 
+     * 
+     * @return void
+     */
     public function index()
     {
         // Import twig
@@ -34,7 +49,13 @@ class ControllerProjets extends Controller
         ]);
     }
 
-    // Méthode pour afficher un projet
+    /**
+     * @brief Méthode pour afficher un projet en particulier
+     * 
+     * @details Méthode qui récupère un Projet en particulier et ses items associés, puis rend le template avec les infos nécessaires.
+     * 
+     * @return void
+     */
     public function show()
     {
         // Import twig
@@ -62,7 +83,15 @@ class ControllerProjets extends Controller
         ]);
     }
 
-    // Méthode de mofiication d'un projet
+    /**
+     * 
+     * @brief Méthode de modification d'un projet
+     * 
+     * @details Méthode qui récupère les infos du projet à modifier, les technologies disponibles, et les items associés au projet. 
+     *         Puis elle rend le template avec les infos nécessaires pour l'édition.
+     * 
+     * @return void
+     */
     public function edit(){
         require_once("config/twig.php");
 
@@ -98,7 +127,15 @@ class ControllerProjets extends Controller
         ]);
     }
 
-    // Méthode pour mettre à jour un projet
+    /**
+     * 
+     * @brief Méthode de mise à jour d'un projet
+     * 
+     * @details Méthode qui récupère les infos du projet à modifier, les technologies disponibles, et les items associés au projet.
+     *          puis appelle la méthode update() du ProjetDAO pour mettre à jour le projet.
+     * 
+     * @return void
+     */
     public function update(){
         // Récupérer les données du formulaire
         $id = $this->getPost()['id'];
@@ -140,7 +177,16 @@ class ControllerProjets extends Controller
         header('Location: index.php?controller=projets&methode=index');
     }
 
-    // Méthode de création d'un projet
+    /**
+     * 
+     * @brief Méthode de création d'un projet
+     * 
+     * @details Méthode qui récupère les saisies du formulaire et déplace l'image dans le bon dossier afin de créer un projet en BD
+     * 
+     * @attention Cette méthode n'est pas complète, il manque la gestion des items
+     * 
+     * @return void
+     */
     public function create(){
         require_once("config/twig.php");
 
@@ -188,7 +234,14 @@ class ControllerProjets extends Controller
         $this->index();
     }
 
-    // Méthode pour supprimer un projet
+    /**
+     * 
+     * @brief Méthode de suppression d'un projet
+     * 
+     * @details Méthode qui récupère l'id du projet à supprimer, puis appelle la méthode delete() du ProjetDAO pour supprimer le projet
+     * 
+     * @return void
+     */
     public function delete(){
         // Récupérer l'id du projet
         $id = $this->getGet()['id_projet'];

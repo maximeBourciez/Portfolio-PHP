@@ -1,6 +1,15 @@
 <?php
 
-// Controller pour la page d'accueil
+/**
+ * 
+ * @brief Classe ControllerIndex - Controller pour la page d'accueil
+ * 
+ * @details Classe qui contient les méthodes pour afficher la page d'accueil du site vitrine 
+ * 
+ * @author Maxime Bourciez <maxime.bourciez@gmail.com>
+ * 
+ * @date 5 Novembre 2024
+ */
 class ControllerIndex extends Controller{
     // Méthode pour afficher la page d'accueil
     public function index(){
