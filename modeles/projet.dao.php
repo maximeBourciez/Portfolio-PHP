@@ -268,7 +268,6 @@ class ProjetDAO
         $stmt->closeCursor();
     }
 
-<<<<<<< HEAD
     /**
      * @brief Méthode pour insérer un projet
      * 
@@ -278,10 +277,6 @@ class ProjetDAO
      * 
      * @return void
      */
-=======
-
-    // Méthode d'insertion d'un projet
->>>>>>> 11e56cc09514f7ecba36006a0d0fb18c40366874
     public function insert(Projet $projet): void
     {
         $stmt = $this->pdo->prepare('

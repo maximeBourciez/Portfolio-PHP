@@ -135,7 +135,12 @@ class ItemsProjetDAO{
         $stmt->closeCursor();
     }
 
-    // Méhode d'ajout
+    /**
+     * 
+     * @brief Méthode de suppression d'un item
+     * @param ItemsProjet $itemProjet
+     * @return void
+     */
     public function add(ItemsProjet $itemProjet): void{
 
         // Récupérer les informations
@@ -158,4 +163,15 @@ class ItemsProjetDAO{
         $stmt->execute();
     }
 
+
+    /**
+     * @brief Méthode de suppression d'un item
+     * @param int $id Identifiant de l'item
+     * @return void
+     */
+    public function delete(int $idItem): void{
+        $stmt = $this->pdo->prepare('DELETE FROM itemsProjet WHERE id = :id');
+        $stmt->bindParam(':id', $idItem);
+        $stmt->execute();
+    }
 }

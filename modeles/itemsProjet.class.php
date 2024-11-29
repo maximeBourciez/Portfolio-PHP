@@ -12,7 +12,6 @@
  */
 class ItemsProjet{
     // Attributs
-<<<<<<< HEAD
     /**
      * @brief Identifiant
      * @var int|null
@@ -38,13 +37,6 @@ class ItemsProjet{
      * @var string|null
      */
     private ?string $image; 
-=======
-    private ?int $id; // Identifiant
-    private int|Projet $projet; // Projet
-    private ?string $titre; // Titre
-    private ?string $description; // Description
-    private ?string $image; // Image
->>>>>>> 11e56cc09514f7ecba36006a0d0fb18c40366874
 
 
     // Constructeur
@@ -83,16 +75,12 @@ class ItemsProjet{
         return $this->id;
     }
 
-<<<<<<< HEAD
     /**
      * @brief Getter pour le projet
      * 
      * @return Projet|null
      */
     public function getProjet(): ?Projet{
-=======
-    public function getProjet(): int|Projet{
->>>>>>> 11e56cc09514f7ecba36006a0d0fb18c40366874
         return $this->projet;
     }
 
@@ -136,7 +124,6 @@ class ItemsProjet{
         $this->id = $id;
     }
 
-<<<<<<< HEAD
     /**
      * @brief Setter pour le projet
      * 
@@ -145,9 +132,6 @@ class ItemsProjet{
      * @return void
      */
     public function setProjet(?Projet $projet): void{
-=======
-    public function setProjet(int|Projet $projet): void{
->>>>>>> 11e56cc09514f7ecba36006a0d0fb18c40366874
         $this->projet = $projet;
     }
 

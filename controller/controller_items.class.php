@@ -8,14 +8,12 @@
  * @author Maxime Bourciez <maxime.bourciez@gmail.com>
  */
 class ControllerItems extends Controller{
-    // Fonction d'ajout d'item 
+    /**
+     * 
+     * @brief Méthode pour créer un item
+     * @return void
+     */
     public function createItem(){
-        // Debugging
-        var_dump($this->getGet());
-        var_dump($this->getPost());
-        var_dump($_FILES);
-
-        
         // Vérifier que 'id_projet' existe dans $_GET
         if (!isset($this->getGet()['id_projet'])) {
             die('L\'ID du projet est manquant.');
@@ -52,6 +50,32 @@ class ControllerItems extends Controller{
         var_dump($this->getGet());
         var_dump($this->getPost());
         var_dump($_FILES);
+        header('Location: index.php?controller=projets&methode=show&id_projet=' . $idProjet);
+    }
+
+    /**
+     * 
+     * @brief Méthode pour supprimer un item
+     * @return void
+     */
+    public function delete(){
+        // Vérifier que 'id' existe dans $_GET
+        if (!isset($this->getGet()['id_item'])) {
+            die('L\'ID de l\'item est manquant.');
+        }
+        else{
+            // Récupérer l'id de l'item et le transformer en entier
+            $idItem = intval($this->getGet()['id_item']);        
+        }    
+
+        // Récupérer l'id du projet
+        $idProjet = intval($this->getGet()['id_projet']);
+
+        // Passer les données pour la suppression de l'item
+        $managerItem = new ItemsProjetDAO($this->getPdo());
+        $managerItem->delete($idItem);
+
+        // Rediriger vers la page du projet
         header('Location: index.php?controller=projets&methode=show&id_projet=' . $idProjet);
     }
 }
