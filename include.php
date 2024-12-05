@@ -18,7 +18,7 @@ require_once 'controller/controller_index.class.php';
 require_once 'controller/controller_projets.class.php';
 require_once 'controller/controller_factory.class.php';
 require_once 'controller/controller_items.class.php';
-require_once 'controller\controller_dashboard.php';
+require_once 'controller/controller_dashboard.php';
 
 // Ajout des modèles
 require_once 'modeles/projet.class.php';

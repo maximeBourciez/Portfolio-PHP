@@ -44,12 +44,8 @@ class ControllerItems extends Controller{
         $managerItem = new ItemsProjetDAO($this->getPdo());
         $itemToCreate = new ItemsProjet(0, $idProjet, $titre, $description, $path);
         $managerItem->add($itemToCreate);
-    
-        // Rediriger vers la page du projet
 
-        var_dump($this->getGet());
-        var_dump($this->getPost());
-        var_dump($_FILES);
+        // Rediriger vers la page du projet
         header('Location: index.php?controller=projets&methode=show&id_projet=' . $idProjet);
     }
 

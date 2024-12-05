@@ -1,19 +1,8 @@
 {
-    "name": "mon-projet/portfolio",
-    "description": "Un projet utilisant Twig pour le rendu des templates.",
-    "autoload": {
-        "psr-4": {
-            "App\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "lifzerr",
-            "email": "maxime.bourciez@gmail.com"
-        }
-    ],
     "require": {
-        "twig/twig": "^3.0",
-        "twig/intl-extra": "^3.13"
+        "twig/twig": "^3.16",
+        "twig/intl-extra": "^3.16",
+        "symfony/intl": "^5.3",
+        "php": "^7.4 || ^8.0"
     }
 }
