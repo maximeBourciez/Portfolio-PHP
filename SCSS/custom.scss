@@ -1,35 +1,65 @@
-// custom.scss
+// Variables de couleurs
+$primary-color: #000;
+$main-color: #0a0f25;
+$font-color: #fff;
+$secondary-font-color: #bdbdbd;
+$main-hover-btn-color: #1565c0;
+$about-background-color: #263238;
+$main-logo-color: #ffffff;
+$main-border-color: #757575;
+$buttons-font-color: #fff;
+$nav-a-color-hover: #97c2f7;
 
-// Définir tes propres couleurs
-$primary: #303f9f; // Bleu personnalisé
-$secondary: #2ecc71; // Vert personnalisé
-$success: #27ae60; // Succès personnalisé
-$info: #8e44ad; // Informations personnalisées
-$warning: #f39c12; // Avertissement personnalisé
-$danger: #e74c3c; // Danger personnalisé
-$light: #ecf0f1; // Couleur claire personnalisée
-$dark: #2c3e50; // Couleur sombre personnalisée
-
-// Forcer la couleur du texte en blanc pour les boutons de type danger et success
-.btn-success,
-.btn-danger {
-    color: #fff !important;
-}
-
-// Dimensions body
-html, body {
-    height: 100%; 
-    margin: 0;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-}
-
-main {
-    flex: 1; 
-}
-
-// Importer Bootstrap à partir de node_modules
+// Importation de Bootstrao
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+// Application des couleurs principales
+body {
+    background-color: $main-color;
+    color: $font-color;
+}
+
+header, footer {
+    background-color: $primary-color;
+    color: $font-color;
+    border-color: $main-border-color;
+}
+
+.navbar {
+    background-color: $primary-color;
+    .nav-link {
+        color: $font-color;
+        &:hover {
+            color: $nav-a-color-hover;
+        }
+    }
+}
+
+// Boutons
+.btn {
+    background-color: $main-hover-btn-color;
+    color: $buttons-font-color;
+    border-color: $main-border-color;
+    &:hover {
+        background-color: lighten($main-hover-btn-color, 10%);
+    }
+}
+
+// Section "About"
+.about-section {
+    background-color: $about-background-color;
+    color: $secondary-font-color;
+}
+
+// Logos
+.logo {
+    color: $main-logo-color;
+}
+
+// Liens
+a {
+    color: $font-color;
+    &:hover {
+        color: $nav-a-color-hover;
+    }
+}

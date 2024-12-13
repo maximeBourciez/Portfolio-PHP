@@ -51,7 +51,7 @@ class ItemsProjet{
      * @param string|null $description Description
      * @param string|null $image Image
      */
-    public function __construct(?int $id = null, int|Projet $projet = null, ?string $titre = null, ?string $description = null, ?string $image = null){
+    public function __construct(?int $id = null, int $projet = null, ?string $titre = null, ?string $description = null, ?string $image = null){
         $this->id = $id;
         if(is_int($projet)){
             $this->projet = new Projet($projet);
