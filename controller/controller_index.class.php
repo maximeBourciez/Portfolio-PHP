@@ -21,7 +21,7 @@ class ControllerIndex extends Controller{
 
         // Récupérer les 3 projets les + récents
         $projetDAO = new ProjetDAO($this->getPdo());
-        $projets = $projetDAO->getLastThree();
+        $projets = $projetDAO->findAll();
 
         // Affichage du rendu du template avec les variables
         echo $template->render([
