@@ -83,4 +83,28 @@ class TechnologieDAO{
         $stmt->closeCursor();
         return $this->hydrateAll($result);
     }
+
+    /**
+     * @brief Méthode d'insertion d'une technologie dans la BDD.
+     * 
+     * @param Technologie $pTechno Technologie çà ajouter dans la BD
+     * 
+     * @return void
+     */
+    public function insert(Technologie $pTechno){
+        // Récupérer les données
+        $nomTechno = $pTechno->getNom();
+        $maitrise = $pTechno->getNiveauMaitrise();
+        $logo = $pTechno->getLogo();
+
+        // Insérer en BD
+        $sql = "INSERT INTO technologie (nom, niveauMaitrise, logo)
+                VALUES (:nom, :maitrise, :logo);";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(":nom", $nomTechno, PDO::PARAM_STR);
+        $stmt->bindParam(":maitrise", $maitrise, PDO::PARAM_STR);
+        $stmt->bindParam(":logo", $logo, PDO::PARAM_STR);
+        $stmt->execute();
+    }
 }
+        

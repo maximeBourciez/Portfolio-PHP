@@ -87,20 +87,21 @@ class ProjetDAO
      * 
      * @return array<Projet>|null
      */
-    public function getLastThree(): array
-    {
-        $stmt = $this->pdo->prepare('
-            SELECT * FROM projet
-            ORDER BY id DESC
-            LIMIT 3
-        ');
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $stmt->closeCursor();
+    public function getLastX(int $X): array
+{
+    $stmt = $this->pdo->prepare('
+        SELECT * FROM projet
+        ORDER BY id DESC
+        LIMIT ?
+    ');
+    $stmt->bindValue(1, $X, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
 
-        // Utilisation de hydrateAll pour créer et retourner les objets Projet
-        return $this->hydrateAll($result);
-    }
+    // Utilisation de hydrateAll pour créer et retourner les objets Projet
+    return $this->hydrateAll($result);
+}
 
     /**
      * @brief Méthode pour récupérer un projet par son identifiant

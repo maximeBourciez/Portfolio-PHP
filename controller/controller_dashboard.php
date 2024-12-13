@@ -123,5 +123,45 @@ class ControllerDashboard extends Controller
             'user' => $_SESSION['user'] ?? null
         ]);
     }
+
+
+    /**
+     * @brief Méthode de création d'une nouvelle techno en BD
+     * 
+     * @details Récupère les valeurs du formulaire pour les insérer comme un nouveau projet en BD.
+     * 
+     * @return void
+     */
+    public function createTechno(){
+        // Récupérer les données du formulaire
+        $nomTechno = $this->getPost()["nomTechno"];
+        $niveauMaitrise = $_POST["maitriseTechno"];
+        $imageCover = $_FILES['logoTechno'] ?? null;
+
+    // Vérifier si l'image a été uploadée avec succès
+    if ($imageCover && $imageCover['error'] === UPLOAD_ERR_OK) {
+        // Générer un nom de fichier unique
+        $extension = pathinfo($imageCover['name'], PATHINFO_EXTENSION);
+        $nomFichier = $nomTechno . '.' . $extension;
+        $destination = 'assets/logos/' . $nomFichier;
+
+        // Déplacer l'image
+        if (move_uploaded_file($imageCover['tmp_name'], $destination)) {
+            $imageCover = $destination;
+        } else {
+            $imageCover = '';
+        }
+    } else {
+        $imageCover = '';
+    }
+
+        // Créer une technologie avec un id bidon (il ets automatique en BD)
+        $technoAInserer = new Technologie(0, $nomTechno, $imageCover, $niveauMaitrise);
+        $managerTechno = new TechnologieDAO($this->getPdo());
+        $managerTechno->insert($technoAInserer);
+
+        // Afficher le dashboard
+        $this->index();
+    }
     
 }
