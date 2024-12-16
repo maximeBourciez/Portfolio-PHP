@@ -1,12 +1,9 @@
 <?php
-
-require_once 'E:\Programmes\Wampserver\www\Portfolio-PHP\vendor\autoload.php';
-
 //ajout de la classe IntlExtension et creation de l’alias IntlExtension
 use Twig\Extra\Intl\IntlExtension;
 
 //initialisation twig : chargement du dossier contenant les templates
-$loader = new Twig\Loader\FilesystemLoader('E:\Programmes\Wampserver\www\Portfolio-PHP\templates');
+$loader = new Twig\Loader\FilesystemLoader('templates');
 
 //Paramétrage de l'environnement twig
 $twig = new Twig\Environment($loader, [

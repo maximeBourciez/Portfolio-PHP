@@ -26,9 +26,6 @@ try  {
         $methode='';
     }
 
-    // Affichage des variables
-    // echo 'controllerName : '.$controllerName.'<br>';
-    // echo 'methode : '.$methode.'<br>';
 
     //Gestion de la page d'accueil par défaut
     if ($controllerName == '' && $methode ==''){

@@ -17,6 +17,7 @@ class Controller{
     private \Twig\Environment $twig;
     private ?array $get = null;
     private ?array $post =null;
+    private ?array $files = null;
 
    public function __construct(\Twig\Environment $twig, \Twig\Loader\FilesystemLoader $loader) {
         $db = Bd::getInstance();
@@ -30,6 +31,9 @@ class Controller{
         }
         if (isset($_POST) && !empty($_POST)){
             $this->post = $_POST;
+        }
+        if (isset($_FILES) && !empty($_FILES)){
+            $this->files = $_FILES;
         }
 
         // Vérifier la session
@@ -144,6 +148,24 @@ class Controller{
     {
         $this->post = $post;
 
+
+    }
+
+    /**
+     * Get the value of files
+     */
+    public function getFiles(): ?array
+    {
+        return $this->files;
+    }
+
+    /**
+     * Set the value of files
+     *
+     */
+    public function setFiles(?array $files): void
+    {
+        $this->files = $files;
 
     }
 }

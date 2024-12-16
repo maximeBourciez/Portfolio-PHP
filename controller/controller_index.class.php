@@ -21,7 +21,7 @@ class ControllerIndex extends Controller{
 
         // Récupérer les 3 projets les + récents
         $projetDAO = new ProjetDAO($this->getPdo());
-        $projets = $projetDAO->getLastThree();
+        $projets = $projetDAO->getLastX(9);
 
         // Affichage du rendu du template avec les variables
         echo $template->render([
@@ -30,5 +30,12 @@ class ControllerIndex extends Controller{
             'projets' => $projets,
             'user' => $_SESSION['user'] ?? null
         ]);
+    }
+
+    // M2thode d'affichage de la page d contact
+    public function contact(){
+        $template = $this->getTwig()->load('contact.html.twig');
+
+        echo $template->render();
     }
 }

@@ -48,6 +48,7 @@ class ProjetDAO
         $projet->setId($data['id']);
         $projet->setTitre($data['titre']);
         $projet->setDescription($data['description']);
+        $projet->setDesclongue($data['descriptionLongue']);
         $projet->setImageCover($data['imageCover']);
         $projet->setAnnee($data['annee']);
         $projet->setType($data['type']);
@@ -87,20 +88,21 @@ class ProjetDAO
      * 
      * @return array<Projet>|null
      */
-    public function getLastThree(): array
-    {
-        $stmt = $this->pdo->prepare('
-            SELECT * FROM projet
-            ORDER BY id DESC
-            LIMIT 3
-        ');
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $stmt->closeCursor();
+    public function getLastX(int $X): array
+{
+    $stmt = $this->pdo->prepare('
+        SELECT * FROM projet
+        ORDER BY id ASC
+        LIMIT ?
+    ');
+    $stmt->bindValue(1, $X, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
 
-        // Utilisation de hydrateAll pour créer et retourner les objets Projet
-        return $this->hydrateAll($result);
-    }
+    // Utilisation de hydrateAll pour créer et retourner les objets Projet
+    return $this->hydrateAll($result);
+}
 
     /**
      * @brief Méthode pour récupérer un projet par son identifiant
@@ -212,11 +214,52 @@ class ProjetDAO
      */
     public function update(Projet $projet): void
     {
+        // Récupérer toutes les technologies associées
+        $technologies = $projet->getTechnologies();
+
+        // Supprimer les associations actuelles avec les technologies
         $stmt = $this->pdo->prepare('
-            UPDATE projet
-            SET titre = :titre, description = :description, imageCover = :imageCover, annee = :annee, type = :type
-            WHERE id = :id
+        DELETE FROM projet_technologie
+        WHERE projet_id = :id
         ');
+        $stmt->bindValue(':id', $projet->getId(), PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+
+        foreach ($technologies as $techno) {
+            // Ajouter les nouvelles associations avec les technologies
+            $stmt = $this->pdo->prepare('
+            INSERT INTO projet_technologie (projet_id, technologie_id)
+            VALUES (:projet_id, :technologie_id)
+        ');
+            $stmt->bindValue(':projet_id', $projet->getId(), PDO::PARAM_INT);
+            $stmt->bindValue(':technologie_id', $techno, PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt->closeCursor();
+        }
+
+        // Vérifier si une nouvelle image a été uploadée
+        if ($projet->getImageCover() != '') {
+            // Supprimer l'ancienne image
+            $stmt = $this->pdo->prepare('
+                    SELECT imageCover FROM projet
+                    WHERE id = :id
+            ');
+            $stmt->bindValue(':id', $projet->getId(), PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt->closeCursor();
+            if (file_exists($result['imageCover'])) {
+                unlink($result['imageCover']);
+            }
+        }
+
+        // Mettre à jour le projet
+        $stmt = $this->pdo->prepare('
+        UPDATE projet
+        SET titre = :titre, description = :description, imageCover = :imageCover, annee = :annee, type = :type
+        WHERE id = :id
+    ');
         $stmt->bindValue(':id', $projet->getId(), PDO::PARAM_INT);
         $stmt->bindValue(':titre', $projet->getTitre(), PDO::PARAM_STR);
         $stmt->bindValue(':description', $projet->getDescription(), PDO::PARAM_STR);

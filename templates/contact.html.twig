@@ -1,0 +1,118 @@
+{% extends 'base_template.html.twig' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="page-title">À propos de moi</h1>
+
+    <!-- Section À propos de moi -->
+    <div class="container mt-5">
+        <div class="profile-card d-flex align-items-center">
+            <div class="col-md-3 text-center">
+                <img src="assets/profile-2.png" alt="Photo de Maxime" class="rounded-circle img-fluid" style="max-width: 150px;">
+            </div>
+            <div class="col-md-9">
+                <h2>Maxime BOURCIEZ</h2>
+                <p>
+                    Étudiant en 2ème année de BUT Informatique à l'IUT de Bayonne, je me spécialise dans le développement web (fullstack) et la conception de logiciels. 
+                    Durant ma formation, j'ai acquis des compétences solides en algorithmique, UML, et bases de données relationnelles. J'ai travaillé sur des projets concrets, tels 
+                    que le développement d'une application en C++ ou la création d'un site d'e-commerce en PHP.
+                </p>
+                <p>
+                    Ma passion pour l'informatique réside dans ma volonté de résoudre des problèmes complexes avec des solutions innovantes. Je me consacre à l'apprentissage 
+                    constant des nouvelles technologies, et je suis particulièrement intéressé par le développement web et mobile.
+                </p>
+                <p>
+                    En parallèle de mes études, j'aime également m'adonner au sport, notamment le ski et le VTT de descente, ce qui me permet de nourrir ma créativité tout en conservant un bon équilibre de vie.
+                </p>
+                <div class="d-flex">
+                    <div class="me-3">
+                        <i class="bi bi-envelope icon"></i> maxime.bourciez@gmail.com
+                    </div>
+                    <div>
+                        <i class="bi bi-telephone icon"></i> 07 69 62 61 95
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Compétences -->
+    <div class="container mt-5">
+        <div class="skills-card row align-items-center">
+            <div class="col-md-3 text-center">
+                <img src="assets/coding.png" alt="Compétences">
+            </div>
+            <div class="col-md-9 d-flex flex-column">
+                <div>
+                <h2>Compétences</h2> 
+                </div>
+                <div>
+                <ul>
+                    <li><strong>Langages de programmation :</strong> 
+                        <i class="bx bxl-html5 icon"></i>
+                        <i class="bx bxl-css3 icon"></i>
+                        <i class="bx bxs-file-js icon"></i>
+                        <i class="bx bxl-python icon"></i>
+                        <i class="bx bxl-php icon"></i>
+                        <i class="bx bxl-c-plus-plus icon"></i>
+                    </li>
+                    <li><strong>Conception UML :</strong> Capacité à modéliser des systèmes complexes à l'aide de diagrammes UML (cas d'utilisation, classes et activités).</li>
+                    <li><strong>Bases de données relationnelles :</strong> Conception, implémentation et gestion de bases de données avec MySQL.</li>
+                    <li><strong>Gestion de version avec Git & GitHub :</strong> Expérience en gestion de versions, résolution de conflits et hébergement sur GitHub.</li>
+                </ul>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.profile-card {
+
+    background-color: #263238; /* Couleur de fond */
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+
+.skills-card {
+
+    background-color: #263238; /* Couleur de fond */
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+
+.skills-card img {
+
+    width: 100px;
+
+}
+
+
+.icon {
+
+    font-size: 1.5rem;
+
+    color: #ffffff; /* Couleur des icônes */
+
+}
+
+
+.contact-way {
+
+    margin-bottom: 0;
+
+}
+</style>
+{% endblock %}

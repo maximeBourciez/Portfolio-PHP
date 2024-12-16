@@ -1,51 +1,80 @@
 {% extends 'base_template.html.twig' %}
 
-{% block title %}Home
+{% block title %}Maxime BOURCIEZ | Portfolio
 {% endblock %}
 
 {% block content %}
 	<div class="container my-5">
 		<div class="row align-items-center">
 			<div class="col-lg-6">
-				<h1>Salut, je suis Maxime BOURCIEZ<br>Étudiant en Informatique</h1>
-				<p>Je suis étudiant en deuxième année de BUT Informatique au sein de l'IUT de Bayonne et du Pays Basque. J'ai toujours aimé coder et résoudre des problèmes grâce au codage, et c'est pourquoi j'ai choisi cette formation.</p>
-				<a href="assets/CV Maxime BOURCIEZ.png" download="assets/CV Maxime BOURCIEZ.png" class="btn btn-primary">
+				<h1 class="text-primary">Salut, je suis Maxime BOURCIEZ<br><span class="text-secondary">Étudiant en Informatique</span></h1>
+				<p class="text-secondary-font-color my-4">Je suis étudiant en deuxième année de BUT Informatique au sein de l'IUT de Bayonne et du Pays Basque. J'ai toujours aimé coder et résoudre des problèmes grâce au codage, et c'est pourquoi j'ai choisi cette formation.</p>
+				<a href="assets/CV Maxime BOURCIEZ.png" download="assets/CV Maxime BOURCIEZ.png" class="btn btn-main-hover my-2">
 					Télécharger mon CV
 				</a>
 			</div>
 			<div class="col-lg-6 text-center">
-				<img src="assets/profile-1.png" alt="Photo de profil" class="img-fluid rounded-circle">
+				<img src="assets/profile-1.png" alt="Photo de profil" class="img-fluid border-main-color">
 			</div>
 		</div>
 	</div>
-	<div class="bg-light px-5">
-		<div class="bg-light px-5 text-center pt-5">
-			<h3>Quelques-uns de mes projets</h3>
-			<a href="index.php?controller=projets&methode=index" class="btn btn-primary mt-3">En découvrir +</a>
+	<div class="bg-about-background-color px-5 py-5">
+		<div class="px-5 text-center pt-5">
+			<h3 class="text-font-color">Quelques-uns de mes projets</h3>
+			<a href="index.php?controller=projets&methode=index" class="btn btn-main-hover my-3">En découvrir +</a>
 		</div>
 
-		<div class="container">
-			<div class="row bg-light pt-5">
-				{% for project in projets %}
-					<a class="col-md-4 mb-4 text-decoration-none" href="index.html?controller=projets&methode=show&id_projet={{project.id}}">
-						<div class="card h-100 shadow-sm">
-							<img src="{{ project.imageCover }}" class="card-img-top w-100 p-2 image-rounded-top" style="height: 250px; object-fit: cover;" alt="Image de {{ project.titre }}">
-							<div class="card-body">
-								<h3 class="card-title">{{ project.titre }}</h3>
-								<div class="d-flex align-items-center">
-									<span class="badge bg-secondary me-2">{{ project.annee }}</span>
-									<h4 class="card-subtitle text-muted">
-										{% for techno in project.technologies %}
-											{{ loop.first ? '' : ', ' }}{{ techno.nom }}
-										{% endfor %}
-									</h4>
-								</div>
-								<p class="card-text mt-3">{{ project.description }}</p>
-							</div>
-						</div>
-					</a>
-				{% endfor %}
-			</div>
-		</div>
+		<div id="projectsCarousel" class="carousel slide my-5" data-bs-ride="carousel">
+            <!-- Slides -->
+            <div class="carousel-inner mb-4">
+                {% for group in projets|batch(3) %}
+                    <div class="carousel-item {{ loop.first ? 'active' : '' }}">
+                        <div class="container">
+                            <div class="row">
+                                {% for project in group %}
+                                    <div class="col-md-4">
+                                        <a href="index.html?controller=projets&methode=show&id_projet={{ project.id }}" class="text-decoration-none">
+                                            <div class="card h-100 shadow-sm bg-main-color border-main-color">
+                                                <img src="{{ project.imageCover }}" class="card-img-top w-100 p-2 image-rounded-top border-main-color" style="height: 250px; object-fit: cover;" alt="Image de {{ project.titre }}">
+                                                <div class="card-body">
+                                                    <h3 class="card-title text-primary">{{ project.titre }}</h3>
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="badge bg-secondary me-2">{{ project.annee }}</span>
+                                                        <h5 class="card-subtitle text-secondary-font-color">
+                                                            {% for techno in project.technologies %}
+                                                                {{ loop.first ? '' : ', ' }}{{ techno.nom }}
+                                                            {% endfor %}
+                                                        </h4>
+                                                    </div>
+                                                    <p class="card-text mt-3 text-secondary-font-color">{{ project.description }}</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Contrôles de navigation -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Précédent</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#projectsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Suivant</span>
+            </button>
+
+            <!-- Indicateurs -->
+            <div class="carousel-indicators mt-5 position-static">
+                {% for project in projets|batch(3) %}
+                    <button type="button" data-bs-target="#projectsCarousel" data-bs-slide-to="{{ loop.index0 }}" class="{{ loop.first ? 'active' : '' }}" aria-current="{{ loop.first ? 'true' : 'false' }}" aria-label="Slide {{ loop.index }}"></button>
+                {% endfor %}
+            </div>
+        </div>
 	</div>
+    
 {% endblock %}

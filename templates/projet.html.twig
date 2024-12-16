@@ -1,13 +1,112 @@
 {% extends 'base_template.html.twig' %}
 
-{% block title %}Projet | {{ title }}{% endblock %}
+{% block title %}Projet |
+	{{ title }}
+{% endblock %}
 
 {% block content %}
-    <div class="container my-5">
-        <h1 class="text-center mb-4">{{ projet.titre }}</h1>
-        <p class="text-center">{{ projet.description }}</p>
-        <div class="d-flex justify-content-center mt-4">
-            <img src="{{ projet.imageCover }}" alt="Image de {{ projet.titre }}" class="img-fluid" style="height: 400px; object-fit: cover;">
-        </div>
-    </div>
+	<div class="container my-5">
+		<h1 class="text-center mb-4">{{ projet.titre }}</h1>
+		<p class="text-center">{{ projet.description }}</p>
+		<div class="d-flex justify-content-center mt-4">
+			<img src="{{ projet.imageCover }}" alt="Image de {{ projet.titre }}" class="img-fluid" style="height: 400px; object-fit: cover;">
+		</div>
+	</div>
+
+	<!-- Bouton pour ajouter un item -->
+	<div class="container">
+		<div class="d-flex justify-content-between align-items-center">
+			<h2 class="my-5">Items</h2>
+			{% if user is not null %}
+				<!-- Bouton Ajouter un item -->
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addModal">Ajouter un item</button>
+			{% endif %}
+		</div>
+
+		<div class="d-flex flex-wrap justify-content-start gap-4">
+			{% for item in items %}
+				<div class="card h-100 shadow-sm" style="width: 300px;">
+					<img src="{{ item.image }}" class="card-img-top img-fluid" alt="Image de {{ item.titre }}" style="height: 200px; object-fit: cover;">
+					<div class="card-body">
+						<h3 class="card-title">{{ item.titre }}</h3>
+						<p class="card-text">{{ item.description }}</p>
+					</div>
+					<div class="card-footer d-flex justify-content-between align-items-center">
+						<small class="text-muted">Type :
+							{{ item.type }}</small>
+						{% if user is not null %}
+							<div>
+								<!-- Bouton Modifier -->
+								<a href="javascript:void(0);" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ item.id }}">Modifier</a>
+								<!-- Bouton Supprimer -->
+								<a href="index.php?controller=items&methode=delete&id_item={{ item.id }}" class="btn btn-sm btn-white-text btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer cet item ?');">Supprimer</a>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+
+				<!-- Modal de modification pour chaque item -->
+				<div class="modal fade" id="editModal{{ item.id }}" tabindex="-1" aria-labelledby="editModalLabel{{ item.id }}" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="editModalLabel{{ item.id }}">Modifier
+									{{ item.titre }}</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div
+								class="modal-body">
+								<!-- Formulaire de modification -->
+								<form method="POST" action="index.php?controller=items&methode=update&id_item={{ item.id }}">
+									<div class="mb-3">
+										<label for="titre" class="form-label">Titre</label>
+										<input type="text" class="form-control" id="titre" name="titre" value="{{ item.titre }}" required>
+									</div>
+									<div class="mb-3">
+										<label for="description" class="form-label">Description</label>
+										<textarea class="form-control" id="description" name="description" rows="3" required>{{ item.description }}</textarea>
+									</div>
+									<div class="mb-3">
+										<label for="imageCover" class="form-label">URL de l'image de couverture</label>
+										<input type="text" class="form-control" id="imageCover" name="imageCover" value="{{ item.imageCover }}" required>
+									</div>
+									<button type="submit" class="btn btn-primary">Sauvegarder</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+	<!-- Modal pour Ajouter un item -->
+	<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="addModalLabel">Ajouter un item</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div
+					class="modal-body">
+					<!-- Formulaire d'ajout d'item -->
+					<form method="POST" action="index.php?controller=items&methode=createItem&id_projet={{ projet.id }}" enctype="multipart/form-data">
+						<div class="mb-3">
+							<label for="titre" class="form-label">Titre</label>
+							<input type="text" class="form-control" id="titre" name="titre" required>
+						</div>
+						<div class="mb-3">
+							<label for="description" class="form-label">Description</label>
+							<textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+						</div>
+						<div class="mb-3">
+							<label for="imageCover" class="form-label">Image</label>
+							<input type="file" class="form-control" id="imageCover" name="imageCover" required>
+						</div>
+						<button type="submit" class="btn btn-primary">Ajouter</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

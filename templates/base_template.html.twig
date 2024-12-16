@@ -8,71 +8,74 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 		<title>
-			{% block title %}My Portfolio
+			{% block title %}Mon Portfolio
 			{% endblock %}
 		</title>
-		{# <link rel="stylesheet" href='style\style.css'> {% block stylesheets %}{% endblock %} #}
-		<link rel="stylesheet" href="SCSS/custom.css">
+		<link href="SCSS/custom.css" rel="stylesheet">
 	</head>
 	<body class="min-vh-100">
 		<header>
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<nav class="navbar navbar-expand-lg navbar-light bg-main-color">
 				<div class="container-fluid d-flex justify-content-between">
-					<a class="navbar-brand" href="index.php">Maxime BOURCIEZ</a>
+					<a class="navbar-brand text-primary" href="index.php">Maxime BOURCIEZ</a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
 					<div class="collapse navbar-collapse" id="navbarNav">
 						<ul class="navbar-nav ms-auto">
 							<li class="nav-item">
-								<a class="nav-link" href="index.php">Accueil</a>
+								<a class="nav-link text-secondary-font-color" href="index.php">Accueil</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="index.php?controller=projets&methode=index">Projets réalisés</a>
+								<a class="nav-link text-secondary-font-color" href="index.php?controller=projets&methode=index">Projets réalisés</a>
 							</li>
+							<!--<li class="nav-item">
+								<a class="nav-link text-secondary-font-color" href="#">Expériences</a>
+							</li>-->
 							<li class="nav-item">
-								<a class="nav-link" href="#">Expériences</a>
+								<a class="nav-link text-secondary-font-color" href="index.php?controller=index&methode=contact">À propos de moi</a>
 							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">À propos de moi</a>
-							</li>
+							{% if user %}
+								<li class="nav-item">
+									<a class="nav-link text-secondary-font-color" href="">Dashboard</a>
+								</li>
+							{% endif %}
 						</ul>
 					</div>
 				</div>
 			</nav>
 		</header>
 
-
-		<main class="container my-5"> {% block content %}{% endblock %}
+		<main class="my-5"> {% block content %}{% endblock %}
 			</main>
 
-			<footer class="bg-light text-center py-4 b-0">
+			<footer class="bg-about-background-color text-center py-4 b-0">
 				<div class="container">
 					<div class="d-flex justify-content-center mb-3">
-						<a href="#" class="me-3">
-							<i class='bx bxl-github fs-3'></i>
+						<a href="https://github.com/maximeBourciez/" class="me-3">
+							<i class='bx bxl-github fs-3 text-primary'></i>
 						</a>
-						<a href="#" class="me-3">
-							<i class='bx bxl-instagram fs-3'></i>
+						<a href="https://www.instagram.com/maxime.bok/	" class="me-3">
+							<i class='bx bxl-instagram fs-3 text-primary'></i>
 						</a>
-						<a href="#" class="me-3">
-							<i class='bx bxl-twitter fs-3'></i>
+						<a href="https://x.com/Maxime_Bourciez" class="me-3">
+							<i class='bx bxl-twitter fs-3 text-primary'></i>
 						</a>
-						<a href="#">
-							<i class='bx bxl-linkedin-square fs-3'></i>
+						<a href="https://www.linkedin.com/in/maxime-bourciez/">
+							<i class='bx bxl-linkedin-square fs-3 text-primary'></i>
 						</a>
 					</div>
 					{% if user %}
 						<a href="index.php?controller=dashboard&methode=logout" class="btn btn-outline-danger my-3">Déconnexion</a>
 					{% endif %}
-						<a href="index.php?controller=dashboard&methode=login" class="btn btn-outline-secondary my-3">Accès administrateur</a>
-					
+					<a href="index.php?controller=dashboard&methode=login" class="btn btn-outline-secondary my-3">Accès administrateur</a>
 
-					<p class="mb-0">Copyright ©2024, All rights reserved.</p>
+					<p class="mb-0 text-secondary-font-color">Copyright ©2024, All rights reserved.</p>
 				</div>
 			</footer>
 
-
+	<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 		</body>
 	</html>

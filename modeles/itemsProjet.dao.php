@@ -134,4 +134,44 @@ class ItemsProjetDAO{
         $stmt->execute();
         $stmt->closeCursor();
     }
+
+    /**
+     * 
+     * @brief Méthode de suppression d'un item
+     * @param ItemsProjet $itemProjet
+     * @return void
+     */
+    public function add(ItemsProjet $itemProjet): void{
+
+        // Récupérer les informations
+        $imageCover = $itemProjet->getImage();
+        $titre = $itemProjet->getTitre();
+        $description = $itemProjet->getDescription(); 
+        $projet_id = $itemProjet->getProjet();
+
+        // Si ce n'ets pas un entier, on le convertit
+        if (!is_int($projet_id)) {
+            $projet_id = $projet_id->getId();
+        }
+
+        // Ajouter l'item
+        $stmt = $this->pdo->prepare('INSERT INTO itemsProjet (titre, description, imageCover, projet_id) VALUES (:titre, :description, :imageCover, :projet_id)');
+        $stmt->bindParam(':titre', $titre);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':imageCover', $imageCover);
+        $stmt->bindParam(':projet_id', $projet_id);
+        $stmt->execute();
+    }
+
+
+    /**
+     * @brief Méthode de suppression d'un item
+     * @param int $id Identifiant de l'item
+     * @return void
+     */
+    public function delete(int $idItem): void{
+        $stmt = $this->pdo->prepare('DELETE FROM itemsProjet WHERE id = :id');
+        $stmt->bindParam(':id', $idItem);
+        $stmt->execute();
+    }
 }
