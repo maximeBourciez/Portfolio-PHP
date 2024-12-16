@@ -48,6 +48,7 @@ class ProjetDAO
         $projet->setId($data['id']);
         $projet->setTitre($data['titre']);
         $projet->setDescription($data['description']);
+        $projet->setDesclongue($data['descriptionLongue']);
         $projet->setImageCover($data['imageCover']);
         $projet->setAnnee($data['annee']);
         $projet->setType($data['type']);
@@ -91,7 +92,7 @@ class ProjetDAO
 {
     $stmt = $this->pdo->prepare('
         SELECT * FROM projet
-        ORDER BY id DESC
+        ORDER BY id ASC
         LIMIT ?
     ');
     $stmt->bindValue(1, $X, PDO::PARAM_INT);

@@ -8,13 +8,13 @@
 		<div class="row align-items-center">
 			<div class="col-lg-6">
 				<h1 class="text-primary">Salut, je suis Maxime BOURCIEZ<br><span class="text-secondary">Étudiant en Informatique</span></h1>
-				<p class="text-secondary-font-color">Je suis étudiant en deuxième année de BUT Informatique au sein de l'IUT de Bayonne et du Pays Basque. J'ai toujours aimé coder et résoudre des problèmes grâce au codage, et c'est pourquoi j'ai choisi cette formation.</p>
-				<a href="assets/CV Maxime BOURCIEZ.png" download="assets/CV Maxime BOURCIEZ.png" class="btn btn-main-hover">
+				<p class="text-secondary-font-color my-4">Je suis étudiant en deuxième année de BUT Informatique au sein de l'IUT de Bayonne et du Pays Basque. J'ai toujours aimé coder et résoudre des problèmes grâce au codage, et c'est pourquoi j'ai choisi cette formation.</p>
+				<a href="assets/CV Maxime BOURCIEZ.png" download="assets/CV Maxime BOURCIEZ.png" class="btn btn-main-hover my-2">
 					Télécharger mon CV
 				</a>
 			</div>
 			<div class="col-lg-6 text-center">
-				<img src="assets/profile-1.png" alt="Photo de profil" class="img-fluid rounded-circle border-main-color">
+				<img src="assets/profile-1.png" alt="Photo de profil" class="img-fluid border-main-color">
 			</div>
 		</div>
 	</div>
@@ -40,7 +40,7 @@
                                                     <h3 class="card-title text-primary">{{ project.titre }}</h3>
                                                     <div class="d-flex align-items-center">
                                                         <span class="badge bg-secondary me-2">{{ project.annee }}</span>
-                                                        <h4 class="card-subtitle text-secondary-font-color">
+                                                        <h5 class="card-subtitle text-secondary-font-color">
                                                             {% for techno in project.technologies %}
                                                                 {{ loop.first ? '' : ', ' }}{{ techno.nom }}
                                                             {% endfor %}

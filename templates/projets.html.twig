@@ -47,7 +47,7 @@
                     <!-- Conteneur d'image fixe -->
                     <div class="image-container me-3" 
                          style="width: 300px; height: 250px; overflow: hidden; flex-shrink: 0;">
-                        <a href="index.php?controller=projets&methode=show&id_projet={{ project.id }}">
+                        <a href="#">
                             <img src="{{ project.imageCover }}" alt="Image de {{ project.titre }}" 
                                  style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;">
                         </a>
@@ -55,8 +55,8 @@
                     <div class="details flex-grow-1 ">
                         <div class="d-flex align-items-center my-4">
                             <h2 class="mb-0 me-3" style="font-size: 1.75rem;">{{ project.titre }}</h2>
-                            <a href="index.php?controller=projets&methode=show&id_projet={{ project.id }}" 
-                               class="btn btn-outline-primary btn-sm">Voir Détails</a>
+                            <a href="#" 
+                               class="btn btn-outline-primary btn-sm">Voir en détails</a>
                         </div>
                         <div class="item-info d-flex align-items-center mb-3">
                             <div class="year-badge badge bg-secondary me-3" style="font-size: 1rem;">
@@ -69,7 +69,11 @@
                                 {% endfor %}
                             </h4>
                         </div>
-                        <p>{{ project.description }}</p>
+                        {% if project.descriptionLongue %}
+                            <p>{{ project.descriptionLongue }}</p>
+                        {% else %}
+                            <p>{{ project.description }}</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>

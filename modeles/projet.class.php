@@ -25,6 +25,10 @@ class Projet{
      */
     private string|null $description; 
     /**
+     * @var string|null Description longue du projet
+     */
+    private string|null $descriptionLongue;
+    /**
      * @var string|null Image de couverture du projet
      */
     private string|null $imageCover; 
@@ -94,6 +98,13 @@ class Projet{
     }
 
     /**
+     * @
+     */
+    public function getDescLongue(): ?string{
+        return $this->descriptionLongue;
+    }
+
+    /**
      * @brief Getter pour l'image de couverture
      * @return string|null
      */
@@ -152,6 +163,10 @@ class Projet{
      */
     public function setDescription(string|null $description): void{
         $this->description = $description;
+    }
+
+    public function setDesclongue(?string $pDesc) : void{
+        $this->descriptionLongue = $pDesc;
     }
 
     /**
