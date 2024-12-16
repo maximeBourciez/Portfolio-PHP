@@ -4,7 +4,7 @@ var indexSectionsWithContent =
   1: "bcipt",
   2: "bcipt",
   3: "_acdefghilsu",
-  4: "$t"
+  4: "$"
 };
 
 var indexSectionNames =
@@ -19,7 +19,7 @@ var indexSectionNames =
 var indexSectionLabels =
 {
   0: "All",
-  1: "Data Structures",
+  1: "Classes",
   2: "Files",
   3: "Functions",
   4: "Variables"

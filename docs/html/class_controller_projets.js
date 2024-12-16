@@ -1,9 +1,9 @@
 var class_controller_projets =
 [
-    [ "create", "class_controller_projets.html#a435e7d7525d4bcd0ed5e34a469f3adf6", null ],
-    [ "delete", "class_controller_projets.html#a13bdffdd926f26b825ea57066334ff01", null ],
-    [ "edit", "class_controller_projets.html#a5cb75cbb16467eb1768837d126dc535b", null ],
-    [ "index", "class_controller_projets.html#a149eb92716c1084a935e04a8d95f7347", null ],
-    [ "show", "class_controller_projets.html#a2b8e3779f5bd8c38f70307574859bd36", null ],
-    [ "update", "class_controller_projets.html#a842e4774e3b3601a005b995c02f7e883", null ]
+    [ "create", "class_controller_projets.html#a5d293770f070ad4c00e3738effd83fe8", null ],
+    [ "delete", "class_controller_projets.html#a14d898285e1db9ffef5fc26aca5037a6", null ],
+    [ "edit", "class_controller_projets.html#af5b263494dcdf8cb6d072c9e205115ec", null ],
+    [ "index", "class_controller_projets.html#af65a699a9bc8a8b1cfa1bf593be0bada", null ],
+    [ "show", "class_controller_projets.html#a2ec711d7be77a8ef7afa2815b319dbc1", null ],
+    [ "update", "class_controller_projets.html#a253b11ab222b3d755143561896196c7e", null ]
 ];

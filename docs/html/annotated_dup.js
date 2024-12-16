@@ -5,6 +5,7 @@ var annotated_dup =
     [ "ControllerDashboard", "class_controller_dashboard.html", "class_controller_dashboard" ],
     [ "ControllerFactory", "class_controller_factory.html", "class_controller_factory" ],
     [ "ControllerIndex", "class_controller_index.html", "class_controller_index" ],
+    [ "ControllerItems", "class_controller_items.html", "class_controller_items" ],
     [ "ControllerProjets", "class_controller_projets.html", "class_controller_projets" ],
     [ "ItemsProjet", "class_items_projet.html", "class_items_projet" ],
     [ "ItemsProjetDAO", "class_items_projet_d_a_o.html", "class_items_projet_d_a_o" ],

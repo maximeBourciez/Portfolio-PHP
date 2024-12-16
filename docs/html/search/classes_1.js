@@ -4,5 +4,6 @@ var searchData=
   ['controllerdashboard_1',['ControllerDashboard',['../class_controller_dashboard.html',1,'']]],
   ['controllerfactory_2',['ControllerFactory',['../class_controller_factory.html',1,'']]],
   ['controllerindex_3',['ControllerIndex',['../class_controller_index.html',1,'']]],
-  ['controllerprojets_4',['ControllerProjets',['../class_controller_projets.html',1,'']]]
+  ['controlleritems_4',['ControllerItems',['../class_controller_items.html',1,'']]],
+  ['controllerprojets_5',['ControllerProjets',['../class_controller_projets.html',1,'']]]
 ];

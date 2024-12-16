@@ -74,13 +74,13 @@ class ControllerProjets extends Controller
         $items = $itemsProjetDAO->findAll();
 
         // Affichage du rendu du template avec les variables
-        echo $template->render(context: [
+        echo $template->render(array ([
             'title' => $projet->getTitre(),
             'description' => $projet->getDescription(),
             'projet' => $projet,
             'items' => $items,
             'user' => $_SESSION['user'] ?? null
-        ]);
+        ]));
     }
 
     /**

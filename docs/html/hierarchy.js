@@ -4,6 +4,7 @@ var hierarchy =
     [ "Controller", "class_controller.html", [
       [ "ControllerDashboard", "class_controller_dashboard.html", null ],
       [ "ControllerIndex", "class_controller_index.html", null ],
+      [ "ControllerItems", "class_controller_items.html", null ],
       [ "ControllerProjets", "class_controller_projets.html", null ]
     ] ],
     [ "ControllerFactory", "class_controller_factory.html", null ],
