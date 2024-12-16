@@ -31,4 +31,11 @@ class ControllerIndex extends Controller{
             'user' => $_SESSION['user'] ?? null
         ]);
     }
+
+    // M2thode d'affichage de la page d contact
+    public function contact(){
+        $template = $this->getTwig()->load('contact.html.twig');
+
+        echo $template->render();
+    }
 }
