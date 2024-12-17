@@ -60,10 +60,11 @@ class Projet{
      * @param string|null $type Type
      * @param array|null $technologies Technologies
      */
-    function __construct(?int $id = null, ?string $titre = null, ?string $description = null, ?string $imageCover = null, ?string $annee = null,?string $type = null, ?array $technologies = null){
+    function __construct(?int $id = null, ?string $titre = null, ?string $description = null,  ?string $descriptionLongue = null, ?string $imageCover = null, ?string $annee = null,?string $type = null, ?array $technologies = null){
         $this->id = $id;
         $this->titre = $titre;
         $this->description = $description;
+        $this->descriptionLongue = $descriptionLongue;
         $this->imageCover = $imageCover;
         $this->annee = $annee;
         $this->type = $type;
@@ -152,7 +153,7 @@ class Projet{
      * @param string|null $titre Titre
      * @return void
      */
-    public function setTitre(string|null $titre): void{
+    public function setTitre(?string $titre): void{
         $this->titre = $titre;
     }
 
@@ -161,7 +162,7 @@ class Projet{
      * @param string|null $description Description
      * @return void
      */
-    public function setDescription(string|null $description): void{
+    public function setDescription(?string $description): void{
         $this->description = $description;
     }
 
@@ -174,7 +175,7 @@ class Projet{
      * @param string|null $imageCover Image de couverture
      * @return void
      */
-    public function setImageCover(string|null $imageCover): void{
+    public function setImageCover(?string $imageCover): void{
         $this->imageCover = $imageCover;
     }
 
@@ -183,7 +184,7 @@ class Projet{
      * @param string|null $annee Année
      * @return void
      */
-    public function setAnnee(string|null $annee): void{
+    public function setAnnee(?string $annee): void{
         $this->annee = $annee;
     }
 
@@ -192,7 +193,7 @@ class Projet{
      * @param string|null $type Type
      * @return void
      */
-    public function setType(string|null $type): void{
+    public function setType(?string $type): void{
         $this->type = $type;
     }
 
@@ -201,7 +202,7 @@ class Projet{
      * @param array|null $technologies Technologies
      * @return void
      */
-    public function setTechnologies(array|null $technologies): void{
+    public function setTechnologies(?array $technologies): void{
         $this->technologies = $technologies;
     }
 }

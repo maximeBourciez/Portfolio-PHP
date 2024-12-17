@@ -42,6 +42,7 @@
 <div class="content">
     <div class="works-list pt-4">
         {% for project in projets %}
+
             <div class="item mb-5">
                 <div class="d-flex align-items-start">
                     <!-- Conteneur d'image fixe -->
@@ -69,8 +70,8 @@
                                 {% endfor %}
                             </h4>
                         </div>
-                        {% if project.descriptionLongue %}
-                            <p>{{ project.descriptionLongue }}</p>
+                        {% if project.getDescLongue() %}
+                            <p>{{ project.getDescLongue() }}</p>
                         {% else %}
                             <p>{{ project.description }}</p>
                         {% endif %}
