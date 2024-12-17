@@ -87,7 +87,14 @@ class ControllerDashboard extends Controller
         $id = $_POST['identifiant'];
         $password = $_POST['password'];
 
-        if ($id == 'admin' && $password == 'admin') {
+        // Vérifier si les identifiants sont corrects
+        $sql = "SELECT * FROM users WHERE login = :id AND pwd = :password";
+        $stmt = $this->getPdo()->prepare($sql);
+        $stmt->execute(['id' => $id, 'password' => $password]);
+        $user = $stmt->fetch();
+
+        // Si les identifiants sont corrects, rediriger vers le dashboard
+        if ($user) {
             $_SESSION['user'] = 'admin';
             header('Location: index.php?controller=dashboard&methode=index');
         } else {
