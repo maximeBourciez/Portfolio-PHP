@@ -10,7 +10,7 @@
  * 
  * @author Maxime Bourciez <maxime.bourciez@gmail.com>
  */
-class ProjetDAO
+class ProjetDAO 
 {
     // Attributs
     /**
@@ -52,6 +52,7 @@ class ProjetDAO
         $projet->setImageCover($data['imageCover']);
         $projet->setAnnee($data['annee']);
         $projet->setType($data['type']);
+        $projet->setLienGit($data['lienGit']);
 
         // Récupérer les technologies associées
         $technologiesDAO = new TechnologieDAO($this->pdo);
@@ -112,8 +113,6 @@ class ProjetDAO
      * @param int $id
      * 
      * @return Projet
-     * 
-     * @warning Peut-être throw en cas de non-résultat
      */
     public function getById(int $id): Projet
     {
@@ -125,8 +124,6 @@ class ProjetDAO
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
-
-        // Utilisation de hydrate pour créer et retourner l'objet Projet
         return $this->hydrate($result);
     }
 
@@ -257,7 +254,7 @@ class ProjetDAO
         // Mettre à jour le projet
         $stmt = $this->pdo->prepare('
         UPDATE projet
-        SET titre = :titre, description = :description, imageCover = :imageCover, annee = :annee, type = :type
+        SET titre = :titre, description = :description, imageCover = :imageCover, annee = :annee, type = :type, lienGit = :lienGit
         WHERE id = :id
     ');
         $stmt->bindValue(':id', $projet->getId(), PDO::PARAM_INT);
@@ -266,6 +263,7 @@ class ProjetDAO
         $stmt->bindValue(':imageCover', $projet->getImageCover(), PDO::PARAM_STR);
         $stmt->bindValue(':annee', $projet->getAnnee(), PDO::PARAM_INT);
         $stmt->bindValue(':type', $projet->getType(), PDO::PARAM_STR);
+        $stmt->bindValue(':lienGit', $projet->getLienGit(), PDO::PARAM_STR);
         $stmt->execute();
         $stmt->closeCursor();
     }
@@ -392,5 +390,16 @@ class ProjetDAO
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
+    }
+
+    public function create($projet) {
+        $req = "INSERT INTO projet (nom, description, image, lienGit) 
+                VALUES (:nom, :description, :image, :lienGit)";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(":nom", $projet->getNom(), PDO::PARAM_STR);
+        $stmt->bindValue(":description", $projet->getDescription(), PDO::PARAM_STR);
+        $stmt->bindValue(":image", $projet->getImage(), PDO::PARAM_STR);
+        $stmt->bindValue(":lienGit", $projet->getLienGit(), PDO::PARAM_STR);
+        $stmt->execute();
     }
 }

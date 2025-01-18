@@ -44,6 +44,10 @@ class Projet{
      * @var array|null Technologies utilisées dans le projet
      */
     private array|null $technologies; 
+    /**
+     * @var string|null Lien GitHub du projet
+     */
+    private string|null $lienGit;
 
 
     // Constructeur
@@ -60,7 +64,7 @@ class Projet{
      * @param string|null $type Type
      * @param array|null $technologies Technologies
      */
-    function __construct(?int $id = null, ?string $titre = null, ?string $description = null,  ?string $descriptionLongue = null, ?string $imageCover = null, ?string $annee = null,?string $type = null, ?array $technologies = null){
+    function __construct(?int $id = null, ?string $titre = null, ?string $description = null,  ?string $descriptionLongue = null, ?string $imageCover = null, ?string $annee = null,?string $type = null, ?array $technologies = null, ?string $lienGit = null){
         $this->id = $id;
         $this->titre = $titre;
         $this->description = $description;
@@ -69,6 +73,7 @@ class Projet{
         $this->annee = $annee;
         $this->type = $type;
         $this->technologies = $technologies;
+        $this->lienGit = $lienGit;
     }
 
 
@@ -135,6 +140,14 @@ class Projet{
      */
     public function getTechnologies(): array|null{
         return $this->technologies;
+    }
+
+    /**
+     * @brief Getter pour le lien GitHub
+     * @return string|null
+     */
+    public function getLienGit(): string|null{
+        return $this->lienGit;
     }
 
 
@@ -204,5 +217,14 @@ class Projet{
      */
     public function setTechnologies(?array $technologies): void{
         $this->technologies = $technologies;
+    }
+
+    /**
+     * @brief Setter pour le lien GitHub
+     * @param string|null $lienGit Lien GitHub
+     * @return void
+     */
+    public function setLienGit(?string $lienGit): void{
+        $this->lienGit = $lienGit;
     }
 }

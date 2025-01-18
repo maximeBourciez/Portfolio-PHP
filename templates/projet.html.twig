@@ -11,6 +11,16 @@
 		<div class="d-flex justify-content-center mt-4">
 			<img src="{{ projet.imageCover }}" alt="Image de {{ projet.titre }}" class="img-fluid" style="height: 400px; object-fit: cover;">
 		</div>
+		<div class="d-flex justify-content-center mt-4">
+			<p class="text-center">{{ projet.getDescLongue() }}</p>
+		</div>
+		{% if projet.lienGit %}
+			<div class="d-flex justify-content-center mt-4">
+				<a href="{{ projet.lienGit }}" target="_blank" class="btn btn-github">
+					<i class="fab fa-github"></i> Voir sur GitHub
+				</a>
+			</div>
+		{% endif %}
 	</div>
 
 	<!-- Bouton pour ajouter un item -->
@@ -108,5 +118,16 @@
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<div class="projet-details">
+		<h2>{{ projet.nom }}</h2>
+		<img src="{{ projet.image }}" alt="{{ projet.nom }}">
+		<p>{{ projet.description }}</p>
+		{% if projet.lienGit %}
+			<a href="{{ projet.lienGit }}" target="_blank" class="btn btn-github">
+				<i class="fab fa-github"></i> Voir sur GitHub
+			</a>
+		{% endif %}
 	</div>
 {% endblock %}

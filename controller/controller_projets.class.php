@@ -58,29 +58,22 @@ class ControllerProjets extends Controller
      */
     public function show()
     {
-        // Import twig
         require_once("config/twig.php");
+        // Récupérer les données 
+        $idProjet = $this->getGet()['id_projet'];
 
         // Création & chargement du template
         $template = $this->getTwig()->load('projet.html.twig');
 
         // Récupérer le projet
         $projetDAO = new ProjetDAO($this->getPdo());
-        $projet = $projetDAO->getById($this->getGet()['id_projet']);
-
-        // Récupérer les items du projet
-        $items = $projetDAO->getItems($this->getGet()['id_projet']);
-        $itemsProjetDAO = new ItemsProjetDAO($this->getPdo());
-        $items = $itemsProjetDAO->findAll();
+        $projet = $projetDAO->getById($idProjet);
 
         // Affichage du rendu du template avec les variables
-        echo $template->render(array ([
-            'title' => $projet->getTitre(),
-            'description' => $projet->getDescription(),
+        echo $template->render([
             'projet' => $projet,
-            'items' => $items,
             'user' => $_SESSION['user'] ?? null
-        ]));
+        ]);
     }
 
     /**

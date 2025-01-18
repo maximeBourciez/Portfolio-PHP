@@ -3,7 +3,17 @@
     "bootstrap": "^5.3.3",
     "sass": "^1.83.0"
   },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "scripts": {
-    "build-css": "sass SCSS/custom.scss SCSS/custom.css"
+    "build-css": "sass SCSS/custom.scss SCSS/custom.css",
+    "cz": "cz"
+  },
+  "devDependencies": {
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0"
   }
 }
