@@ -35,21 +35,25 @@
 
 		<div class="d-flex flex-wrap justify-content-start gap-4">
 			{% for item in items %}
-				<div class="card h-100 shadow-sm" style="width: 300px;">
-					<img src="{{ item.image }}" class="card-img-top img-fluid" alt="Image de {{ item.titre }}" style="height: 200px; object-fit: cover;">
-					<div class="card-body">
-						<h3 class="card-title">{{ item.titre }}</h3>
-						<p class="card-text">{{ item.description }}</p>
+				<div class="item-container d-flex shadow-sm p-3 mb-3" style="min-height: 200px;">
+					<!-- Image à gauche -->
+					<div class="item-image" style="width: 450px; min-width: 300px;">
+						<img src="{{ item.image }}" class="img-fluid h-100 image-item" alt="Image de {{ item.titre }}" title="{{ item.titre }}" style="object-fit: cover;">
 					</div>
-					<div class="card-footer d-flex justify-content-between align-items-center">
-						<small class="text-muted">Type :
-							{{ item.type }}</small>
+					
+					<!-- Contenu à droite -->
+					<div class="item-content d-flex flex-column justify-content-between ps-4 w-100">
+						<!-- Titre et description -->
+						<div>
+							<h3 class="title">{{ item.titre }}</h3>
+							<p>{{ item.description }}</p>
+						</div>
+						
+						<!-- Boutons (si utilisateur connecté) -->
 						{% if user is not null %}
-							<div>
-								<!-- Bouton Modifier -->
+							<div class="mt-auto text-end">
 								<a href="javascript:void(0);" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ item.id }}">Modifier</a>
-								<!-- Bouton Supprimer -->
-								<a href="index.php?controller=items&methode=delete&id_item={{ item.id }}" class="btn btn-sm btn-white-text btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer cet item ?');">Supprimer</a>
+								<a href="index.php?controller=items*&*methode=delete*&*id_item={{ item.id }}" class="btn btn-sm btn-white-text btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer cet item ?');">Supprimer</a>
 							</div>
 						{% endif %}
 					</div>
@@ -94,7 +98,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="addModalLabel">Ajouter un item</h5>
+					<h5 class="modal-title text-dark" id="addModalLabel">Ajouter un item</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div
@@ -102,15 +106,15 @@
 					<!-- Formulaire d'ajout d'item -->
 					<form method="POST" action="index.php?controller=items&methode=createItem&id_projet={{ projet.id }}" enctype="multipart/form-data">
 						<div class="mb-3">
-							<label for="titre" class="form-label">Titre</label>
-							<input type="text" class="form-control" id="titre" name="titre" required>
+							<label for="titre" class="form-label text-dark">Titre</label>
+							<input type="text" class="form-control  text-dark" id="titre" name="titre" required>
 						</div>
 						<div class="mb-3">
-							<label for="description" class="form-label">Description</label>
+							<label for="description" class="form-label text-dark">Description</label>
 							<textarea class="form-control" id="description" name="description" rows="3" required></textarea>
 						</div>
 						<div class="mb-3">
-							<label for="imageCover" class="form-label">Image</label>
+							<label for="imageCover" class="form-label text-dark">Image</label>
 							<input type="file" class="form-control" id="imageCover" name="imageCover" required>
 						</div>
 						<button type="submit" class="btn btn-primary">Ajouter</button>
@@ -120,14 +124,30 @@
 		</div>
 	</div>
 
-	<div class="projet-details">
-		<h2>{{ projet.nom }}</h2>
-		<img src="{{ projet.image }}" alt="{{ projet.nom }}">
-		<p>{{ projet.description }}</p>
-		{% if projet.lienGit %}
-			<a href="{{ projet.lienGit }}" target="_blank" class="btn btn-github">
-				<i class="fab fa-github"></i> Voir sur GitHub
-			</a>
-		{% endif %}
+	<!-- Modal pour l'affichage de l'image en grand -->
+	<div class="modal fade" id="imageCoverModal" tabindex="-1" aria-labelledby="imageCoverModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title text-dark" id="imageCoverModalLabel"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body p-0">
+					<img id="modalImage" src="" alt="" class="img-fluid w-100">
+				</div>
+			</div>
+		</div>
 	</div>
+<script>
+	// Fonction pour afficher le nom du fichier dans le champ de l'input file
+	const fileInput = document.getElementById('imageCover');
+	const fileLabel = document.querySelector('.custom-file-label');
+
+	fileInput.addEventListener('change', (e) => {
+		fileLabel.textContent = e.target.files[0].name;
+	});
+
+</script>
+<script src="JS/projets.js"></script>
+
 {% endblock %}

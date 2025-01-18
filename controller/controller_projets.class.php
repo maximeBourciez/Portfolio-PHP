@@ -69,9 +69,14 @@ class ControllerProjets extends Controller
         $projetDAO = new ProjetDAO($this->getPdo());
         $projet = $projetDAO->getById($idProjet);
 
+        // Récupérer les items du projet
+        $itemDAO = new ItemsProjetDAO($this->getPdo());
+        $items = $itemDAO->findByProjetId($idProjet);
+
         // Affichage du rendu du template avec les variables
         echo $template->render([
             'projet' => $projet,
+            'items' => $items,
             'user' => $_SESSION['user'] ?? null
         ]);
     }
