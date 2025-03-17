@@ -58,12 +58,12 @@ class ItemsProjetDAO{
      * @return array<ItemsProjet>|null
      */
     public function hydrateAll(array $donnees): array{
-        $itemsProjets = [];
+        $itemsprojets = [];
         foreach($donnees as $row){
             $itemProjet = $this->hydrate($row);
-            array_push($itemsProjets, $itemProjet);
+            array_push($itemsprojets, $itemProjet);
         }
-        return $itemsProjets;
+        return $itemsprojets;
     }
 
     /**
@@ -74,7 +74,7 @@ class ItemsProjetDAO{
      * @return ItemsProjet|null
      */
     public function findById(int $id): ItemsProjet|null{
-        $stmt = $this->pdo->prepare('SELECT * FROM itemsProjet WHERE id = :id');
+        $stmt = $this->pdo->prepare('SELECT * FROM itemsprojet WHERE id = :id');
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         $result = $stmt->fetch();
@@ -93,7 +93,7 @@ class ItemsProjetDAO{
      * @return array<ItemsProjet>|null (null si aucun item n'est trouvé)
      */
     public function findAll(): array{
-        $stmt = $this->pdo->prepare('SELECT * FROM itemsProjet');
+        $stmt = $this->pdo->prepare('SELECT * FROM itemsprojet');
         $stmt->execute();
         $result = $stmt->fetchAll();
         $stmt->closeCursor();
@@ -108,7 +108,7 @@ class ItemsProjetDAO{
      * @return array<ItemsProjet>
      */
     public function findByProjetId(int $projet_id): array{
-        $stmt = $this->pdo->prepare('SELECT * FROM itemsProjet WHERE projet_id = :projet_id');
+        $stmt = $this->pdo->prepare('SELECT * FROM itemsprojet WHERE projet_id = :projet_id');
         $stmt->bindParam(':projet_id', $projet_id);
         $stmt->execute();
         $result = $stmt->fetchAll();
@@ -126,7 +126,7 @@ class ItemsProjetDAO{
      * @warning Cette méthode devrait peut-être utiliser un objet ProjetDAO pour récupérer le projet associé à l'item + N'est jamais utilisée pour le moment
      */
     public function update(ItemsProjet $itemProjet): void{
-        $stmt = $this->pdo->prepare('UPDATE itemsProjet SET titre = :titre, description = :description, imageCover = :imageCover WHERE id = :id');
+        $stmt = $this->pdo->prepare('UPDATE itemsprojet SET titre = :titre, description = :description, imageCover = :imageCover WHERE id = :id');
         $stmt->bindParam(':id', $itemProjet->getId());
         $stmt->bindParam(':titre', $itemProjet->getTitre());
         $stmt->bindParam(':description', $itemProjet->getDescription());
@@ -155,7 +155,7 @@ class ItemsProjetDAO{
         }
 
         // Ajouter l'item
-        $stmt = $this->pdo->prepare('INSERT INTO itemsProjet (titre, description, imageCover, projet_id) VALUES (:titre, :description, :imageCover, :projet_id)');
+        $stmt = $this->pdo->prepare('INSERT INTO itemsprojet (titre, description, imageCover, projet_id) VALUES (:titre, :description, :imageCover, :projet_id)');
         $stmt->bindParam(':titre', $titre);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':imageCover', $imageCover);
@@ -170,7 +170,7 @@ class ItemsProjetDAO{
      * @return void
      */
     public function delete(int $idItem): void{
-        $stmt = $this->pdo->prepare('DELETE FROM itemsProjet WHERE id = :id');
+        $stmt = $this->pdo->prepare('DELETE FROM itemsprojet WHERE id = :id');
         $stmt->bindParam(':id', $idItem);
         $stmt->execute();
     }
