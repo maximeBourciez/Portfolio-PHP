@@ -93,7 +93,7 @@ class ProjetDAO
 {
     $stmt = $this->pdo->prepare('
         SELECT * FROM projet
-        ORDER BY id ASC
+        ORDER BY id DESC
         LIMIT ?
     ');
     $stmt->bindValue(1, $X, PDO::PARAM_INT);
@@ -174,10 +174,10 @@ class ProjetDAO
                 if ($type != '') {
                     $sql .= ' AND ';
                 }
-                $sql .= 'id IN (SELECT projet_id FROM projet_technologie WHERE technologie_id = :techno) 
-                        ORDER BY projet_id DESC';
+                $sql .= 'id IN (SELECT projet_id FROM projet_technologie WHERE technologie_id = :techno)';
             }
         }
+        $sql .= ' ORDER BY id DESC';
 
         // Préparation de la requête
         $stmt = $this->pdo->prepare($sql);
