@@ -137,7 +137,7 @@ class ProjetDAO
     public function getItems(int $id): array
     {
         $stmt = $this->pdo->prepare('
-            SELECT * FROM itemsProjet
+            SELECT * FROM itemsprojet
             WHERE projet_id = :id
         ');
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -352,7 +352,7 @@ class ProjetDAO
 
         // Supprimer les images des items du projet du dossier
         $stmt = $this->pdo->prepare('
-         SELECT imageCover FROM itemsProjet
+         SELECT imageCover FROM itemsprojet
          WHERE projet_id = :id
      ');
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -385,7 +385,7 @@ class ProjetDAO
 
         // Supprimer les items
         $stmt = $this->pdo->prepare('
-            DELETE FROM itemsProjet
+            DELETE FROM itemsprojet
             WHERE projet_id = :id
         ');
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
