@@ -5,6 +5,14 @@
 {% endblock %}
 
 {% block content %}
+<div class="flex-grow-1">
+	<!-- Message d'erreur -->
+	{% if messageErreur %}
+		<div class="alert alert-danger text-center" role="alert">
+			{{ messageErreur }}
+		</div>
+	{% endif %}
+
 	<div class="container my-5">
 		<h1 class="text-center mb-4">{{ projet.titre }}</h1>
 		<p class="text-center">{{ projet.description }}</p>
@@ -34,65 +42,73 @@
 		</div>
 
 		<div class="d-flex flex-wrap justify-content-start gap-4">
-			{% for item in items %}
-				<div class="item-container d-flex shadow-sm p-3 mb-3" style="min-height: 200px;">
-					<!-- Image à gauche -->
-					<div class="item-image" style="width: 450px; min-width: 300px;">
-						<img src="{{ item.image }}" class="img-fluid h-100 image-item" alt="Image de {{ item.titre }}" title="{{ item.titre }}" style="object-fit: cover;">
-					</div>
-					
-					<!-- Contenu à droite -->
-					<div class="item-content d-flex flex-column justify-content-between ps-4 w-100">
-						<!-- Titre et description -->
-						<div>
-							<h3 class="title">{{ item.titre }}</h3>
-							<p>{{ item.description }}</p>
+			{% if items is empty %}
+				<p class="text-center">Ce projet n'a pas été documenté pour le moment.</p>
+			{% else %}
+				{% for item in items %}
+					<div class="item-container d-flex shadow-sm p-3 mb-3" style="min-height: 200px;">
+						<!-- Image à gauche -->
+						<div class="item-image" style="width: 450px; min-width: 300px;">
+							<img src="{{ item.image }}" class="img-fluid h-100 image-item" alt="Image de {{ item.titre }}" title="{{ item.titre }}" style="object-fit: cover;">
 						</div>
 						
-						<!-- Boutons (si utilisateur connecté) -->
-						{% if user is not null %}
-							<div class="mt-auto text-end">
-								<a href="javascript:void(0);" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ item.id }}">Modifier</a>
-								<a href="index.php?controller=items*&*methode=delete*&*id_item={{ item.id }}" class="btn btn-sm btn-white-text btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer cet item ?');">Supprimer</a>
+						<!-- Contenu à droite -->
+						<div class="item-content d-flex flex-column justify-content-between ps-4 w-100">
+							<!-- Titre et description -->
+							<div>
+								<h3 class="title">{{ item.titre }}</h3>
+								<p>{{ item.description }}</p>
 							</div>
-						{% endif %}
+							
+							<!-- Boutons (si utilisateur connecté) -->
+							{% if user is not null %}
+								<div class="mt-auto text-end">
+									<a href="javascript:void(0);" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ item.id }}">Modifier</a>
+									<a href="index.php?controller=items&methode=delete&id_item={{ item.id }}" class="btn btn-sm btn-white-text btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer cet item ?');">Supprimer</a>
+								</div>
+							{% endif %}
+						</div>
 					</div>
-				</div>
 
-				<!-- Modal de modification pour chaque item -->
-				<div class="modal fade" id="editModal{{ item.id }}" tabindex="-1" aria-labelledby="editModalLabel{{ item.id }}" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="editModalLabel{{ item.id }}">Modifier
-									{{ item.titre }}</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-							<div
-								class="modal-body">
-								<!-- Formulaire de modification -->
-								<form method="POST" action="index.php?controller=items&methode=update&id_item={{ item.id }}">
-									<div class="mb-3">
-										<label for="titre" class="form-label">Titre</label>
-										<input type="text" class="form-control" id="titre" name="titre" value="{{ item.titre }}" required>
-									</div>
-									<div class="mb-3">
-										<label for="description" class="form-label">Description</label>
-										<textarea class="form-control" id="description" name="description" rows="3" required>{{ item.description }}</textarea>
-									</div>
-									<div class="mb-3">
-										<label for="imageCover" class="form-label">URL de l'image de couverture</label>
-										<input type="text" class="form-control" id="imageCover" name="imageCover" value="{{ item.imageCover }}" required>
-									</div>
-									<button type="submit" class="btn btn-primary">Sauvegarder</button>
-								</form>
+					<!-- Modal de modification pour chaque item -->
+					<div class="modal fade" id="editModal{{ item.id }}" tabindex="-1" aria-labelledby="editModalLabel{{ item.id }}" aria-hidden="true">
+						<div class="modal-dialog  text-dark">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="editModalLabel{{ item.id }}">Modifier
+										{{ item.titre }}</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div
+									class="modal-body">
+									<!-- Formulaire de modification -->
+									<form method="POST" action="index.php?controller=projets&methode=updateItem&id_item={{ item.id }}" enctype="multipart/form-data">
+										<div class="mb-3">
+											<label for="titre" class="form-label">Titre</label>
+											<input type="text" class="form-control" id="titre" name="titre" value="{{ item.titre }}">
+										</div>
+										<div class="mb-3">
+											<label for="description" class="form-label">Description</label>
+											<textarea class="form-control" id="description" name="description" rows="3">{{ item.description }}</textarea>
+										</div>
+										<div class="mb-3">
+											<label for="imageCover" class="form-label">Image de couverture</label>
+											<input type="file" class="form-control" id="imageCover" name="imageCover" value="{{ item.imageCover }}">
+										</div>
+										<input type="hidden" name="itemId" value="{{ item.id }}">
+										<input type="hidden" name="projetId" value="{{ projet.id }}">
+										<button type="submit" class="btn btn-primary">Sauvegarder</button>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			{% endfor %}
+				{% endfor %}
+			{% endif %}
+			
 		</div>
 	</div>
+
 	<!-- Modal pour Ajouter un item -->
 	<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -138,6 +154,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 <script>
 	// Fonction pour afficher le nom du fichier dans le champ de l'input file
 	const fileInput = document.getElementById('imageCover');

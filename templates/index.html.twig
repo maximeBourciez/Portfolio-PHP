@@ -33,7 +33,7 @@
                             <div class="row">
                                 {% for project in group %}
                                     <div class="col-md-4">
-                                        <a href="index.html?controller=projets&methode=show&id_projet={{ project.id }}" class="text-decoration-none">
+                                        <a href="index.php?controller=projets&methode=show&id_projet={{ project.id }}" class="text-decoration-none">
                                             <div class="card h-100 shadow-sm bg-main-color border-main-color">
                                                 <img src="{{ project.imageCover }}" class="card-img-top w-100 p-2 image-rounded-top border-main-color" style="height: 250px; object-fit: cover;" alt="Image de {{ project.titre }}">
                                                 <div class="card-body">

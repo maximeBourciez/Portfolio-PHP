@@ -174,7 +174,8 @@ class ProjetDAO
                 if ($type != '') {
                     $sql .= ' AND ';
                 }
-                $sql .= 'id IN (SELECT projet_id FROM projet_technologie WHERE technologie_id = :techno)';
+                $sql .= 'id IN (SELECT projet_id FROM projet_technologie WHERE technologie_id = :techno) 
+                        ORDER BY projet_id DESC';
             }
         }
 

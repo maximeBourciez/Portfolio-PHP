@@ -56,9 +56,8 @@ class ControllerProjets extends Controller
      * 
      * @return void
      */
-    public function show()
+    public function show(?string $messageErreur = null)
     {
-        require_once("config/twig.php");
         // Récupérer les données 
         $idProjet = $this->getGet()['id_projet'];
 
@@ -77,7 +76,8 @@ class ControllerProjets extends Controller
         echo $template->render([
             'projet' => $projet,
             'items' => $items,
-            'user' => $_SESSION['user'] ?? null
+            'user' => $_SESSION['user'] ?? null,
+            'messageErreur' => $messageErreur
         ]);
     }
 
@@ -91,8 +91,6 @@ class ControllerProjets extends Controller
      * @return void
      */
     public function edit(){
-        require_once("config/twig.php");
-
         // Récupérer l'id du projet
         $idProjet = $this->getGet()['id_projet'];
 
@@ -229,7 +227,7 @@ class ControllerProjets extends Controller
             $projetDAO->addTechnologie($idProjet, $techno);
         }    
 
-        $this->index();
+        header('Location: index.php?controller=projets&methode=index');
     }
 
     /**
@@ -250,5 +248,48 @@ class ControllerProjets extends Controller
 
         // Rediriger vers la liste des projets
         header('Location: index.php?controller=dashboard&methode=index');
+    }
+
+
+    /**
+     * @brief Méthode de mise à jour d'un item d'un projet
+     * 
+     * @details Méthode qui récupère les infos de l'item à modifier, puis appelle la méthode update() de l'ItemsProjetDAO pour mettre à jour l'item
+     * 
+     * @return void
+     */
+    public function updateItem(){
+        // Récupérer les données saisies
+        $id = $this->getPost()['itemId'];
+        $idProjet = $this->getPost()['projetId'];
+        $titre = $this->getPost()['titre'];
+        $description = $this->getPost()['description'];
+        $image = $_FILES['imageCover'];
+
+        // Vérifier si l'image a été uploadée
+        if ($image['size'] > 0) {
+            // Récupérer l'extension de l'image
+            $extension = pathinfo($image['name'], PATHINFO_EXTENSION);
+
+            // Vérifier si l'extension est autorisée
+            if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
+                $this->show('L\'image n\'est pas valide');
+                return;
+            }
+
+            // Déplacer l'image
+            move_uploaded_file($image['tmp_name'], 'assets/itemsProjets/' . $image['name']);
+            $imageCover = 'assets/itemsProjets/' . $image['name'];
+        } else {
+            $imageCover = '';
+        }
+
+        // Mettre l'item a jour par rapport à l'id
+        $item = new ItemsProjet($id, $idProjet, $titre, $description, $imageCover);
+        $itemDAO = new ItemsProjetDAO($this->getPdo());
+        $itemDAO->update($item);
+
+        // Rediriger vers la page du projet
+        header('Location: index.php?controller=projets&methode=show&id_projet=' . $this->getPost()['projet_id']);
     }
 }
